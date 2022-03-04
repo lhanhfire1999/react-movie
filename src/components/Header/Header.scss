@@ -1,0 +1,66 @@
+@use '../../scss/abstracts/' as *;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $headerHeight;
+  background-color: #ccc;
+
+  @media (hover: hover) {
+    a:hover {
+      color: $mainColor;
+    }
+  }
+
+  &__wrap {
+    height: 100%;
+    padding: 0 12px;
+    @include flex(center, space-between);
+
+    & > .header__logo {
+      @include flex;
+      font-size: $fontSizeMedium;
+      font-weight: 600;
+
+      img {
+        width: 48px;
+        margin-right: 4px;
+      }
+    }
+
+    & > .header__nav {
+      @include flex;
+
+      & > li + li {
+        margin-left: 28px;
+      }
+
+      & > li > a {
+        text-transform: uppercase;
+        font-weight: 600;
+        padding: 4px 0;
+        position: relative;
+
+        &:before {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          height: 2px;
+          width: 0;
+          background-color: $mainColor;
+          border-radius: 4px;
+          transition: width 0.3s;
+        }
+
+        &.active::before,
+        &:hover::before {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
