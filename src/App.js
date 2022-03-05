@@ -1,3 +1,4 @@
+import 'boxicons/css/boxicons.min.css';
 import './scss/App.scss';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Category, Home, MainLayout } from './layouts';
