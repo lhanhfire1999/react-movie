@@ -150,51 +150,38 @@
     }
 
     @include mobile {
-      position: absolute;
-      top: 100%;
+      position: fixed;
+      bottom: 0;
       left: 0;
-      height: 100vh;
-      width: 0;
-      background-color: $black;
-      display: block;
+      height: 0;
+      width: 100%;
 
+      @include flex(center, flex-start);
+      background-color: $black;
       visibility: hidden;
       opacity: 0;
-      transition: width 0.2s, visibility 0.2s, opacity 0.2s;
+      transition: height 0.2s, visibility 0.2s, opacity 0.2s;
+
+      & > li {
+        flex: 1;
+        text-align: center;
+        cursor: pointer;
+
+        &:hover > a {
+          color: $mainColor;
+        }
+
+        &:hover > a::before {
+          width: 100%;
+        }
+      }
 
       & > li + li {
         margin-left: 0;
       }
 
-      & > li > a {
-        display: block;
-        margin: 0 16px;
-        padding: 16px;
-        min-width: 120px;
-
-        &:before {
-          display: none;
-        }
-
-        &:after {
-          content: '';
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          left: 0;
-          background-color: $mainColor;
-          border-radius: 4px;
-          width: 2px;
-        }
-
-        &.active::after,
-        &:hover::after {
-          height: 50%;
-        }
-      }
-
       &.active {
-        width: 40%;
+        height: $mobileNavHeight;
         visibility: visible;
         opacity: 1;
       }

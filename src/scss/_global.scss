@@ -20,6 +20,17 @@ body {
   @include tablet {
     padding-top: $tabletHeaderHeight;
   }
+
+  @include mobile {
+    transition: padding-top 0.3s, padding-bottom 0.3s;
+
+    &.search-bar {
+      padding-top: calc($headerHeight + $searchHeight);
+    }
+    &.nav-bar {
+      padding-bottom: $mobileNavHeight;
+    }
+  }
 }
 
 a {

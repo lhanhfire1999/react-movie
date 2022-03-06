@@ -23,23 +23,31 @@ const Header = () => {
 
   const handleMobileSearchBtn = () => {
     searchBarRef.current.classList.toggle('active');
+    if (searchBarRef.current.classList.contains('active')) {
+      document.body.classList.add('search-bar');
+    } else {
+      document.body.classList.remove('search-bar');
+    }
   };
 
-  const handleMenuBtn = () => {
+  const handleMobileHeaderNav = () => {
     menuRef.current.classList.toggle('active');
 
     if (menuRef.current.classList.contains('active')) {
       navRef.current.classList.add('active');
+      document.body.classList.add('nav-bar');
     } else {
       navRef.current.classList.remove('active');
+      document.body.classList.remove('nav-bar');
     }
   };
 
   useEffect(() => {
-    searchBarRef.current.classList.remove('active');
-    menuRef.current.classList.remove('active');
-    navRef.current.classList.remove('active');
-  });
+    return () => {
+      const clearActive = [searchBarRef, menuRef, navRef];
+      clearActive.forEach((e) => e.current.classList.remove('active'));
+    };
+  }, []);
 
   return (
     <header className="header">
@@ -73,7 +81,11 @@ const Header = () => {
             placeholder="Enter your keyword..."
           />
         </div>
-        <div className="hamburger-menu" onClick={handleMenuBtn} ref={menuRef}>
+        <div
+          className="hamburger-menu"
+          onClick={handleMobileHeaderNav}
+          ref={menuRef}
+        >
           <div className="hamburger"></div>
         </div>
       </div>
