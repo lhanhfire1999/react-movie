@@ -12,6 +12,7 @@ const headerNav = [
 
 const Header = () => {
   const { pathname } = useLocation();
+  const searchIconRef = useRef(null);
   const searchBarRef = useRef(null);
   const menuRef = useRef(null);
   const navRef = useRef(null);
@@ -23,10 +24,13 @@ const Header = () => {
 
   const handleMobileSearchBtn = () => {
     searchBarRef.current.classList.toggle('active');
+
     if (searchBarRef.current.classList.contains('active')) {
       document.body.classList.add('search-bar');
+      searchIconRef.current.classList.replace('bx-search', 'bx-x');
     } else {
       document.body.classList.remove('search-bar');
+      searchIconRef.current.classList.replace('bx-x', 'bx-search');
     }
   };
 
@@ -34,11 +38,11 @@ const Header = () => {
     menuRef.current.classList.toggle('active');
 
     if (menuRef.current.classList.contains('active')) {
-      navRef.current.classList.add('active');
       document.body.classList.add('nav-bar');
+      navRef.current.classList.add('active');
     } else {
-      navRef.current.classList.remove('active');
       document.body.classList.remove('nav-bar');
+      navRef.current.classList.remove('active');
     }
   };
 
@@ -53,7 +57,7 @@ const Header = () => {
     <header className="header">
       <div className="header__wrap container">
         <div className="mobile-search__btn" onClick={handleMobileSearchBtn}>
-          <i className="bx bx-search"></i>
+          <i className="bx bx-search" ref={searchIconRef}></i>
         </div>
         <Link className="header__logo" to="/">
           <img src={logo} alt="Logo movies" />

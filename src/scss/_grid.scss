@@ -16,6 +16,11 @@
   flex-wrap: wrap;
   margin-left: -4px;
   margin-right: -4px;
+
+  @include mobile {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
 }
 
 [class*='col-'] {

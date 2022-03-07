@@ -1,4 +1,4 @@
-import axiosClient from './apiClient';
+import axiosClient from './axiousClient';
 
 export const category = {
   movie: 'movie',
@@ -20,8 +20,8 @@ export const tvType = {
 };
 
 const tmdbApi = {
-  getTrendingList: (category, params) => {
-    const url = `trending/${category}/day`;
+  getTrendingList: (type, params) => {
+    const url = `trending/${category[type]}/day`;
     return axiosClient.get(url, params);
   },
   getMovieList: (type, params) => {

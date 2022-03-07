@@ -1,7 +1,12 @@
 import React from 'react';
+import Banner from '../components/Banner';
 
 const Home = () => {
-  return <div style={{ height: '1000px' }}>Home</div>;
+  return (
+    <>
+      <Banner />
+    </>
+  );
 };
 
 export default Home;

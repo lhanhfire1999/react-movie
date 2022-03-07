@@ -165,15 +165,6 @@
       & > li {
         flex: 1;
         text-align: center;
-        cursor: pointer;
-
-        &:hover > a {
-          color: $mainColor;
-        }
-
-        &:hover > a::before {
-          width: 100%;
-        }
       }
 
       & > li + li {
