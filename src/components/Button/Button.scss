@@ -1,0 +1,59 @@
+@use '../../scss//abstracts/' as *;
+.btn {
+  display: inline-block;
+  min-width: 120px;
+  padding: 12px 48px;
+  border-radius: 4px;
+
+  font-size: $fontSizeNormal;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  background-color: transparent;
+
+  border: none;
+  outline: none;
+  user-select: none;
+  text-decoration: none;
+  cursor: pointer;
+
+  transition: opacity 0.2s ease;
+
+  @include tablet {
+    padding: 12px 32px;
+  }
+
+  @include mobile {
+    padding: 12px 32px;
+  }
+
+  &--size-l {
+    padding: 16px 56px;
+  }
+
+  &--size-s {
+    padding: 8px 32px;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  & + & {
+    margin-left: 16px;
+  }
+
+  &--primary {
+    background-color: $mainColor;
+  }
+
+  &--info {
+    background-color: #007bff;
+  }
+
+  &--disabled,
+  &[disabled] {
+    opacity: 0.5 !important;
+    pointer-events: none;
+  }
+}

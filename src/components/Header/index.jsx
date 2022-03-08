@@ -56,8 +56,12 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header__wrap container">
-        <div className="mobile-search__btn" onClick={handleMobileSearchBtn}>
-          <i className="bx bx-search" ref={searchIconRef}></i>
+        <div
+          className="hamburger-menu"
+          onClick={handleMobileHeaderNav}
+          ref={menuRef}
+        >
+          <div className="hamburger"></div>
         </div>
         <Link className="header__logo" to="/">
           <img src={logo} alt="Logo movies" />
@@ -85,12 +89,8 @@ const Header = () => {
             placeholder="Enter your keyword..."
           />
         </div>
-        <div
-          className="hamburger-menu"
-          onClick={handleMobileHeaderNav}
-          ref={menuRef}
-        >
-          <div className="hamburger"></div>
+        <div className="mobile-search__btn" onClick={handleMobileSearchBtn}>
+          <i className="bx bx-search" ref={searchIconRef}></i>
         </div>
       </div>
     </header>
