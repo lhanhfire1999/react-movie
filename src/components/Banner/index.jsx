@@ -4,7 +4,7 @@ import { Autoplay, Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-import tmdbApi, { movieType } from '../../api/tmdpApi';
+import tmdbApi, { category, movieType } from '../../api/tmdpApi';
 import BannerItem from './BannerItem';
 import './Banner.scss';
 
@@ -15,10 +15,28 @@ const Banner = () => {
     (async () => {
       const params = { page: 1 };
       try {
-        const response = await tmdbApi.getMovieList(movieType.popular, {
+        const moviesAPI = tmdbApi.getMovieList(movieType.popular, {
           params,
         });
-        setMovies(response.results.slice(0, 3));
+        const genresAPI = tmdbApi.getGenres(category.movie);
+        const responses = await Promise.all([moviesAPI, genresAPI]);
+
+        const result = responses[0].results.slice(0, 3);
+
+        result.forEach((movie) => {
+          const genreNames = responses[1]['genres'].reduce(
+            (prev, { id, name }) => {
+              if (movie.genre_ids.includes(id)) {
+                prev.push(name);
+              }
+              return prev;
+            },
+            []
+          );
+          movie['genre_names'] = genreNames;
+        });
+
+        setMovies(result);
       } catch (error) {
         throw error;
       }

@@ -59,6 +59,7 @@
 
         &__infos {
           @include flex(center, flex-start);
+          flex-wrap: wrap;
           @include bannerAnimation(0, -100px, true);
 
           & > li {

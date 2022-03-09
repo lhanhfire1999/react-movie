@@ -1,14 +1,11 @@
 import clsx from 'clsx';
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import logo from '../../assets/logo.png';
-import './Header.scss';
 
-const headerNav = [
-  { display: 'home', path: '/' },
-  { display: 'movies', path: '/movie' },
-  { display: 'tv series', path: '/tv' },
-];
+import './Header.scss';
+import logo from '../../assets/logo.png';
+import MobileMenu from './MobileMenu';
+import { headerNav } from '../../constants';
 
 const Header = () => {
   const { pathname } = useLocation();
@@ -34,35 +31,22 @@ const Header = () => {
     }
   };
 
-  const handleMobileHeaderNav = () => {
-    menuRef.current.classList.toggle('active');
+  const handleMobileHeaderNav = useCallback(() => {
+    menuRef.current.toggle();
 
-    if (menuRef.current.classList.contains('active')) {
+    if (menuRef.current.contains) {
       document.body.classList.add('nav-bar');
       navRef.current.classList.add('active');
     } else {
       document.body.classList.remove('nav-bar');
       navRef.current.classList.remove('active');
     }
-  };
-
-  useEffect(() => {
-    return () => {
-      const clearActive = [searchBarRef, menuRef, navRef];
-      clearActive.forEach((e) => e.current.classList.remove('active'));
-    };
   }, []);
 
   return (
     <header className="header">
       <div className="header__wrap container">
-        <div
-          className="hamburger-menu"
-          onClick={handleMobileHeaderNav}
-          ref={menuRef}
-        >
-          <div className="hamburger"></div>
-        </div>
+        <MobileMenu onClick={handleMobileHeaderNav} ref={menuRef} />
         <Link className="header__logo" to="/">
           <img src={logo} alt="Logo movies" />
           DMOVIES

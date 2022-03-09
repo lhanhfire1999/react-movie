@@ -7,12 +7,14 @@ import Button from '../Button';
 
 const BannerItem = ({ movies, active }) => {
   const {
-    backdrop_path,
-    poster_path,
+    id,
     title,
     overview,
+    genre_names,
     release_date,
     vote_average,
+    backdrop_path,
+    poster_path,
   } = movies;
 
   const imgUrl = useMemo(() => {
@@ -24,7 +26,7 @@ const BannerItem = ({ movies, active }) => {
   }, [backdrop_path, poster_path]);
 
   const releaseDate = useMemo(() => release_date.slice(0, 4), [release_date]);
-
+  const genreNames = useMemo(() => genre_names.join(', '), [genre_names]);
   return (
     <div
       className={clsx('banner__item', { active })}
@@ -38,6 +40,7 @@ const BannerItem = ({ movies, active }) => {
               <ul className="item-content__infos">
                 <li>{vote_average}/10</li>
                 <li>{releaseDate}</li>
+                <li>{genreNames}</li>
               </ul>
               <p className="item-content__description">{overview}</p>
               <div className="item-content__actions">
