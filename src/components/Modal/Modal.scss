@@ -1,0 +1,52 @@
+@use '../../scss/abstracts/' as *;
+
+.modal {
+  @include flex;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  background-color: rgba($color: $black, $alpha: 0.4);
+  overflow: auto;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s, visibility 0.3s;
+  z-index: 10;
+
+  &.active {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &__content {
+    position: relative;
+    width: 50%;
+    height: 600px;
+    border-radius: 8px;
+    background-color: $bodyBg;
+
+    transform: translateY(-200px);
+    opacity: 0;
+    transition: transform 0.3s, opacity 0.3s;
+
+    &__close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: $fontSizeLarge;
+      padding: 1.5rem;
+      cursor: pointer;
+
+      &:hover {
+        color: $mainColor;
+      }
+    }
+  }
+
+  &.active > &__content {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

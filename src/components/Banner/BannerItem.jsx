@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { useCallback, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useMemo } from 'react';
 
 import apiConfig from '../../api/apiConfig';
 import Button from '../Button';
@@ -18,8 +17,6 @@ const BannerItem = ({ movies, active }) => {
     poster_path,
   } = movies;
 
-  const navigate = useNavigate();
-
   const imgUrl = useMemo(() => {
     const original = apiConfig.originalImage(
       backdrop_path ? backdrop_path : poster_path
@@ -30,6 +27,7 @@ const BannerItem = ({ movies, active }) => {
 
   const releaseDate = useMemo(() => release_date.slice(0, 4), [release_date]);
   const genreNames = useMemo(() => genre_names.join(', '), [genre_names]);
+
   return (
     <div
       className={clsx('banner__item', { active })}
