@@ -1,19 +1,24 @@
 import React, { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { headerNav } from '../constants';
+import { NotFound } from '../components';
 
 const Category = () => {
   const { category } = useParams();
   const title = useMemo(() => {
-    return headerNav.reduce((prev, { display, path }) => {
-      console.log(path.slice(1) === category);
-      if (path.slice(1) === category) {
-        return prev + display;
-      }
-      return prev;
-    }, '');
+    if (category === 'movie') {
+      return 'Movie';
+    } else if (category === 'tv') {
+      return 'Tv Series';
+    }
+    return null;
   }, [category]);
-  return <h1>{title}</h1>;
+
+  return (
+    <>
+      {!title && <NotFound />}
+      {title && <h1>{title}</h1>}
+    </>
+  );
 };
 
 export default Category;

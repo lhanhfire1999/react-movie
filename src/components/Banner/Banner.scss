@@ -53,6 +53,8 @@
         &__title {
           font-size: 3rem;
           font-weight: 700;
+          text-shadow: $shadow;
+
           @include hiddenLine(2);
           @include bannerAnimation(0, -100px, true);
         }
@@ -64,6 +66,7 @@
 
           & > li {
             @include flex;
+            text-shadow: $shadow;
 
             & + li {
               $space: 1.5rem;
@@ -84,6 +87,7 @@
 
         &__description {
           text-align: justify;
+          text-shadow: $shadow;
           @include hiddenLine(2);
           @include bannerAnimation(0, -100px, true);
         }
@@ -108,7 +112,7 @@
         & > img {
           height: 100%;
           border-radius: 4px;
-          box-shadow: 0 1px 2px rgb(0 0 0 / 40%);
+          box-shadow: $shadow;
         }
       }
     }
@@ -141,8 +145,18 @@
     }
   }
 
+  &:hover {
+    .swiper-button-prev,
+    .swiper-button-next {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
   .swiper-button-prev,
   .swiper-button-next {
-    color: $white;
+    visibility: hidden;
+    opacity: 0;
+    color: white;
+    transition: visibility 0.4s, opacity 0.4s;
   }
 }

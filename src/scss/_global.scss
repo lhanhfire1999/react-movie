@@ -52,15 +52,3 @@ ul,
 li {
   list-style-type: none;
 }
-
-.mb {
-  margin-bottom: 3rem;
-
-  @include tablet {
-    margin-bottom: 2rem;
-  }
-
-  @include mobile {
-    margin-bottom: 2rem;
-  }
-}

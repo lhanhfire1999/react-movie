@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import apiConfig from '../../api/apiConfig';
 import Button from '../Button';
@@ -16,6 +17,8 @@ const BannerItem = ({ movies, active }) => {
     backdrop_path,
     poster_path,
   } = movies;
+
+  const navigate = useNavigate();
 
   const imgUrl = useMemo(() => {
     const original = apiConfig.originalImage(
@@ -44,8 +47,16 @@ const BannerItem = ({ movies, active }) => {
               </ul>
               <p className="item-content__description">{overview}</p>
               <div className="item-content__actions">
-                <Button color="primary">Watch Now</Button>
-                <Button color="info">More Info</Button>
+                <Button color="primary" icon="bx-play" onClick={() => null}>
+                  Watch Trailer
+                </Button>
+                <Button
+                  color="info"
+                  icon="bx-info-circle"
+                  linkTo={`movie/${id}`}
+                >
+                  More Info
+                </Button>
               </div>
             </div>
           </div>

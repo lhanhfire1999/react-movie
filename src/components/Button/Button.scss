@@ -1,13 +1,17 @@
 @use '../../scss//abstracts/' as *;
+
 .btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   min-width: 120px;
-  padding: 12px 48px;
+  padding: 12px 32px;
   border-radius: 4px;
 
-  font-size: $fontSizeNormal;
+  font-size: $fontSizeMedium;
   font-weight: 700;
   color: #fff;
+
+  text-shadow: $shadow;
   text-align: center;
   background-color: transparent;
 
@@ -17,26 +21,20 @@
   text-decoration: none;
   cursor: pointer;
 
-  transition: opacity 0.2s ease;
+  transition: background-color 0.3s;
 
-  @include tablet {
-    padding: 12px 32px;
-  }
-
-  @include mobile {
-    padding: 12px 32px;
-  }
-
-  &--size-l {
-    padding: 16px 56px;
+  & > i {
+    font-size: $fontSizeLarge;
+    margin-right: 4px;
   }
 
   &--size-s {
-    padding: 8px 32px;
+    font-size: $fontSizeNormal;
+    padding: 8px 20px;
   }
 
-  &:hover {
-    opacity: 0.8;
+  &--size-s > i {
+    font-size: $fontSizeMedium;
   }
 
   & + & {
@@ -47,13 +45,29 @@
     background-color: $mainColor;
   }
 
+  &--primary:hover {
+    background-color: rgba($mainColor, 0.8);
+  }
+
   &--info {
-    background-color: #007bff;
+    background-color: $blue;
+  }
+
+  &--info:hover {
+    background-color: rgba($blue, 0.8);
   }
 
   &--disabled,
   &[disabled] {
     opacity: 0.5 !important;
     pointer-events: none;
+  }
+
+  @include tablet {
+    padding: 12px 32px;
+  }
+
+  @include mobile {
+    padding: 8px 28px;
   }
 }
