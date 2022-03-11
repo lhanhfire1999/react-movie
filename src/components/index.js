@@ -4,4 +4,3 @@ export { default as NotFound } from './NotFound';
 export { default as Banner } from './Banner';
 export { default as Button } from './Button';
 export { default as Modal } from './Modal';
-export * from './Modal';

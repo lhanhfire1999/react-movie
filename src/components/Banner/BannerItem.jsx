@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { useMemo } from 'react';
 
 import apiConfig from '../../api/apiConfig';
+import tmdbApi, { category } from '../../api/tmdpApi';
+import { noVideoUrl, videoUrl } from '../../constants';
+
 import Button from '../Button';
 
 const BannerItem = ({ movies, active }) => {
@@ -28,6 +31,22 @@ const BannerItem = ({ movies, active }) => {
   const releaseDate = useMemo(() => release_date.slice(0, 4), [release_date]);
   const genreNames = useMemo(() => genre_names.join(', '), [genre_names]);
 
+  const handleTrailerModal = async () => {
+    const trailerModal = document.querySelector(`#trailer-modal-${id}`);
+    const iframe = trailerModal.querySelector(`iframe`);
+    const trailerVideos = await tmdbApi.getVideos(category.movie, id);
+
+    if (trailerVideos.results.length > 0) {
+      iframe.setAttribute(
+        'src',
+        videoUrl + trailerVideos.results[0].key + '?autoplay=1'
+      );
+    } else {
+      iframe.setAttribute('src', noVideoUrl);
+    }
+    trailerModal.classList.add('active');
+  };
+
   return (
     <div
       className={clsx('banner__item', { active })}
@@ -45,7 +64,11 @@ const BannerItem = ({ movies, active }) => {
               </ul>
               <p className="item-content__description">{overview}</p>
               <div className="item-content__actions">
-                <Button color="primary" icon="bx-play" onClick={() => null}>
+                <Button
+                  color="primary"
+                  icon="bx-play"
+                  onClick={handleTrailerModal}
+                >
                   Watch Trailer
                 </Button>
                 <Button

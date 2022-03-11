@@ -6,6 +6,7 @@ import 'swiper/css/navigation';
 
 import tmdbApi, { category, movieType } from '../../api/tmdpApi';
 import BannerItem from './BannerItem';
+import TrailerModal from '../TrailerModal';
 import './Banner.scss';
 
 const Banner = () => {
@@ -62,6 +63,9 @@ const Banner = () => {
           </SwiperSlide>
         ))}
       </Swiper>
+      {movies.map(({ id }) => {
+        return <TrailerModal key={id} id={id} />;
+      })}
     </div>
   );
 };
