@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
 
 import apiConfig from '../../api/apiConfig';
 import tmdbApi, { category } from '../../api/tmdpApi';
@@ -31,7 +31,7 @@ const BannerItem = ({ movies, active }) => {
   const releaseDate = useMemo(() => release_date.slice(0, 4), [release_date]);
   const genreNames = useMemo(() => genre_names.join(', '), [genre_names]);
 
-  const handleTrailerModal = async () => {
+  const handleOpenTrailerModal = useCallback(async () => {
     const trailerModal = document.querySelector(`#trailer-modal-${id}`);
     const iframe = trailerModal.querySelector(`iframe`);
     const trailerVideos = await tmdbApi.getVideos(category.movie, id);
@@ -45,7 +45,7 @@ const BannerItem = ({ movies, active }) => {
       iframe.setAttribute('src', noVideoUrl);
     }
     trailerModal.classList.add('active');
-  };
+  }, [id]);
 
   return (
     <div
@@ -67,7 +67,7 @@ const BannerItem = ({ movies, active }) => {
                 <Button
                   color="primary"
                   icon="bx-play"
-                  onClick={handleTrailerModal}
+                  onClick={handleOpenTrailerModal}
                 >
                   Watch Trailer
                 </Button>

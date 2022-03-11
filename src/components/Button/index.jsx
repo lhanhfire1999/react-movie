@@ -1,10 +1,11 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import './Button.scss';
 import { Link } from 'react-router-dom';
 
-const Button = ({ children, onClick, linkTo, color, sizeS, icon }) => {
+import './Button.scss';
+
+const Button = ({ children, onClick, linkTo, color, sizeS, icon, reverse }) => {
   const handleClick = () => {
     if (onClick && typeof onClick === 'function') {
       return onClick();
@@ -19,6 +20,7 @@ const Button = ({ children, onClick, linkTo, color, sizeS, icon }) => {
           className={clsx('btn', {
             [`btn--${color}`]: color,
             'btn--size-s': sizeS,
+            reverse,
           })}
           onClick={handleClick}
         >
@@ -32,6 +34,7 @@ const Button = ({ children, onClick, linkTo, color, sizeS, icon }) => {
           className={clsx('btn', {
             [`btn--${color}`]: color,
             'btn--size-s': sizeS,
+            reverse,
           })}
           onClick={handleClick}
           to={linkTo}
@@ -45,9 +48,12 @@ const Button = ({ children, onClick, linkTo, color, sizeS, icon }) => {
 };
 
 Button.propTypes = {
+  children: PropTypes.string,
   onClick: PropTypes.func,
+  linkTo: PropTypes.string,
   color: PropTypes.string,
   icon: PropTypes.string,
+  reverse: PropTypes.bool,
 };
 
 export default React.memo(Button);

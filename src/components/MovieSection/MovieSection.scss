@@ -1,0 +1,21 @@
+@use '../../scss/abstracts/' as *;
+
+.movie-section {
+  &__header {
+    @include flex(center, space-between);
+  }
+  &__title {
+    position: relative;
+    font-weight: 700;
+    &:before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 1px;
+      width: 160px;
+      border-radius: 4px;
+      background-color: $mainColor;
+    }
+  }
+}

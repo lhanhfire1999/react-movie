@@ -63,6 +63,7 @@ const Banner = () => {
           </SwiperSlide>
         ))}
       </Swiper>
+      
       {movies.map(({ id }) => {
         return <TrailerModal key={id} id={id} />;
       })}

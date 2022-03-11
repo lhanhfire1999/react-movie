@@ -1,8 +1,8 @@
 @use '../../scss//abstracts/' as *;
 
 .btn {
+  @include flex;
   display: inline-flex;
-  align-items: center;
   min-width: 120px;
   padding: 12px 32px;
   border-radius: 4px;
@@ -22,6 +22,12 @@
   cursor: pointer;
 
   transition: background-color 0.3s;
+
+  &.reverse {
+    & > i {
+      order: 1;
+    }
+  }
 
   & > i {
     font-size: $fontSizeLarge;
@@ -55,6 +61,10 @@
 
   &--info:hover {
     background-color: rgba($blue, 0.8);
+  }
+
+  &--transparent:hover {
+    color: $mainColor;
   }
 
   &--disabled,

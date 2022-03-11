@@ -1,0 +1,20 @@
+@use '../../scss/abstracts/' as *;
+
+.movie-card {
+  width: 100%;
+  &__poster {
+    padding-top: 130%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  &__wraper {
+    padding: 4px;
+  }
+  &__name {
+    @include hiddenLine(1);
+  }
+  &__infos {
+    @include flex(center, space-between);
+  }
+}
