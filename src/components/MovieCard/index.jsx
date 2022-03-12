@@ -26,12 +26,13 @@ const MovieCard = ({ id, posterUrl, title, releaseDate, type }) => {
             <i className="bx bx-play-circle"></i>
           </span>
         </div>
-
-        <h3 className="movie-card__name">{title}</h3>
-        <ul className="movie-card__infos">
-          <li>{yearRelease}</li>
-          <li>{type === 'tv' ? 'TV' : 'Movie'}</li>
-        </ul>
+        <div className="movie-card__content">
+          <h3 className="movie-card__content__name">{title}</h3>
+          <ul className="movie-card__content__infos">
+            <li>{yearRelease}</li>
+            <li>{type === 'tv' ? 'TV' : 'Movie'}</li>
+          </ul>
+        </div>
       </Link>
     </div>
   );

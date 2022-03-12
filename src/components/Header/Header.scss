@@ -95,7 +95,7 @@
       left: 0;
       height: 0;
       width: 100%;
-      box-shadow: $boxShadow;
+      box-shadow: $shadow;
 
       @include flex(center, flex-start);
       background-color: $black;

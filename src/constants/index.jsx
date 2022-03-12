@@ -8,7 +8,6 @@ export const headerNav = [
 
 export const movieSections = [
   {
-    that: this,
     title: 'Recommended',
     defaultApi() {
       return tmdbApi.getTrendingList(category.all);

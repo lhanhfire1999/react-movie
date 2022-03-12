@@ -2,9 +2,19 @@
 
 .movie-card {
   display: block;
+  box-shadow: $shadow;
+  background-color: $boxBg;
+  border-radius: 8px;
+
   overflow: hidden;
   user-select: none;
+  transition: transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 1px 20px rgba($black, 0.1);
+  }
 
   &__wrapper-poster {
     overflow: hidden;
@@ -40,7 +50,9 @@
 
     @include flex;
     font-size: 4rem;
-    color: $mainColor;
+    color: rgba($mainColor, 0.8);
+    z-index: 2;
+
     opacity: 0;
     transition: opacity 0.3s;
   }
@@ -63,22 +75,26 @@
     transform: scale(1.25);
   }
 
-  & > * + * {
-    margin-top: 0.5rem;
-  }
-  &__name {
-    @include hiddenLine(1);
-    font-size: $fontSizeMedium;
-  }
-  &__infos {
-    @include flex(center, space-between);
-    color: rgba($white, 0.5);
+  &__content {
+    padding: 0 8px 8px;
+    & > * {
+      margin-top: 0.5rem;
+    }
 
-    & > li:last-child {
-      border: 1px solid rgba($white, 0.5);
-      padding: 0 4px;
-      border-radius: 4px;
-      font-size: 0.75rem;
+    &__name {
+      @include hiddenLine(1);
+      font-size: $fontSizeMedium;
+    }
+    &__infos {
+      @include flex(center, space-between);
+      color: rgba($white, 0.5);
+
+      & > li:last-child {
+        border: 1px solid rgba($white, 0.5);
+        padding: 0 4px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+      }
     }
   }
 }

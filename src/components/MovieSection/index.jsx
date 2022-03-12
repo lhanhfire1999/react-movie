@@ -22,7 +22,7 @@ const MovieSection = ({ content, viewAllBtn, filterMode }) => {
   }, [content, filter]);
 
   return (
-    <div className="movie-section mt-3">
+    <div className="movie-section section">
       <header className="movie-section__header mb-2">
         <h1 className="movie-section__title ">{content?.title}</h1>
         {viewAllBtn && (
