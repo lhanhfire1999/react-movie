@@ -3,10 +3,13 @@
 .movie-section {
   &__header {
     @include flex(center, space-between);
+    flex-wrap: wrap;
   }
+
   &__title {
     position: relative;
     font-weight: 700;
+    margin-bottom: 1rem;
     &:before {
       content: '';
       position: absolute;

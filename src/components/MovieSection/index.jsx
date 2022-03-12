@@ -5,15 +5,21 @@ import Button from '../Button';
 import './MovieSection.scss';
 import MovieCard from '../MovieCard';
 
-const MovieSection = ({ content, viewAllBtn }) => {
+const MovieSection = ({ content, viewAllBtn, filterMode }) => {
   const [movies, setMovies] = useState([]);
+  const [filter, setFilter] = useState('all');
+
+  const handleFilter = (key) => {
+    setFilter(key);
+  };
 
   useEffect(() => {
     (async () => {
-      const response = await content?.getApi();
+      const response = await (content?.filters?.[filter]() ??
+        content?.defaultApi());
       setMovies(response.results);
     })();
-  }, [content]);
+  }, [content, filter]);
 
   return (
     <div className="movie-section mt-3">
@@ -30,11 +36,39 @@ const MovieSection = ({ content, viewAllBtn }) => {
             View All
           </Button>
         )}
+
+        {filterMode && (
+          <div className="movie-section__filters">
+            {Object.keys(content?.filters).map((name, i) => (
+              <Button
+                key={i}
+                onClick={() => handleFilter(name)}
+                sizeS
+                icon={
+                  name === 'all'
+                    ? 'bx-trending-up'
+                    : name === 'tv'
+                    ? 'bx-tv'
+                    : 'bx-movie'
+                }
+                color={filter === name ? 'primary' : 'sliver'}
+              >
+                {name === 'all'
+                  ? 'Trending'
+                  : name === 'tv'
+                  ? 'Tv Series'
+                  : name.slice(0, 1).toUpperCase() + name.slice(1)}
+              </Button>
+            ))}
+          </div>
+        )}
       </header>
+
       <div className="row">
         {movies.map((movie) => (
           <MovieCard
             key={movie?.id}
+            id={movie?.id}
             posterUrl={movie?.poster_path}
             title={movie?.title ?? movie?.name}
             releaseDate={movie?.release_date ?? movie?.first_air_date}
@@ -47,8 +81,9 @@ const MovieSection = ({ content, viewAllBtn }) => {
 };
 
 MovieSection.propTypes = {
-  content: PropTypes.object,
+  content: PropTypes.object.isRequired,
   viewAllBtn: PropTypes.bool,
+  filterMode: PropTypes.bool,
 };
 
-export default MovieSection;
+export default React.memo(MovieSection);

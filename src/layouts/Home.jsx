@@ -1,29 +1,6 @@
 import React from 'react';
-import tmdbApi, { category, movieType, tvType } from '../api/tmdpApi';
 import { Banner, MovieSection } from '../components';
-
-const movieSections = [
-  {
-    title: 'Recommended',
-    getApi() {
-      return tmdbApi.getTrendingList(category.all);
-    },
-  },
-  {
-    title: 'Popular Movies',
-    path: '/movie',
-    getApi() {
-      return tmdbApi.getMovieList(movieType.popular);
-    },
-  },
-  {
-    title: 'Popular Tv Series',
-    path: '/tv',
-    getApi() {
-      return tmdbApi.getTvList(tvType.popular);
-    },
-  },
-];
+import { movieSections } from '../constants';
 
 const Home = () => {
   return (
@@ -35,7 +12,8 @@ const Home = () => {
             <MovieSection
               key={i}
               content={content}
-              viewAllBtn={content.title !== 'Recommended'}
+              viewAllBtn={!!content?.path}
+              filterMode={!!content?.filters}
             />
           ))}
         </div>
