@@ -6,6 +6,7 @@ import './Header.scss';
 import logo from '../../assets/logo.png';
 import MobileMenu from './MobileMenu';
 import { headerNav } from '../../constants';
+import { handleScrollTop } from '../../utils';
 
 const Header = () => {
   const { pathname } = useLocation();
@@ -47,7 +48,7 @@ const Header = () => {
     <header className="header">
       <div className="header__wrap container">
         <MobileMenu onClick={handleMobileHeaderNav} ref={menuRef} />
-        <Link className="header__logo" to="/">
+        <Link className="header__logo" to="/" onClick={handleScrollTop}>
           <img src={logo} alt="Logo movies" />
           DMOVIES
         </Link>

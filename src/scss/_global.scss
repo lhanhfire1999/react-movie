@@ -15,7 +15,7 @@ body {
   background-color: $bodyBg;
 
   padding-top: $headerHeight;
-  overflow-x: hidden;
+  // overflow-x: hidden;
 
   @include tablet {
     padding-top: $tabletHeaderHeight;

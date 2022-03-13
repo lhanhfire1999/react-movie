@@ -10,7 +10,7 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: $line;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 @mixin bannerAnimation($opacity: 1, $translateX: 0, $transition: false) {

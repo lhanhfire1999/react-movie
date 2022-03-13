@@ -6,8 +6,10 @@
   left: 0;
   width: 100%;
   height: $headerHeight;
+  box-shadow: $shadow;
   background-color: $black;
   z-index: 9;
+
   @media (hover: hover) {
     a:hover {
       color: $mainColor;

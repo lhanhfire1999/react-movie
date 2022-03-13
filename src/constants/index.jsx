@@ -40,6 +40,26 @@ export const movieSections = [
   },
 ];
 
+export const footerSections = [
+  {
+    title: 'Browse',
+    childrens: [
+      { title: 'Home', path: '/' },
+      { title: 'Movies', path: '/movie' },
+      { title: 'TV Series', path: '/tv' },
+    ],
+  },
+
+  {
+    title: 'Support',
+    childrens: [
+      { title: 'FAQs', path: '/' },
+      { title: 'Contact Us', path: '/' },
+      { title: 'Terms of Use', path: '/' },
+    ],
+  },
+];
+
 // contentModal and singleContent
 export const unavailablePoster =
   'https://www.movienewz.com/img/films/poster-holder.jpg';
