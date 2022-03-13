@@ -4,6 +4,7 @@ export const headerNav = [
   { display: 'home', path: '/' },
   { display: 'movies', path: '/movie' },
   { display: 'tv series', path: '/tv' },
+  { display: 'filter', path: '/search' },
 ];
 
 export const movieSections = [
@@ -47,6 +48,7 @@ export const footerSections = [
       { title: 'Home', path: '/' },
       { title: 'Movies', path: '/movie' },
       { title: 'TV Series', path: '/tv' },
+      { title: 'Filter', path: '/search' },
     ],
   },
 

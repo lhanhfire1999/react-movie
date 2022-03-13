@@ -58,6 +58,7 @@ const Header = () => {
               <Link
                 className={clsx({ active: i === activeIndex })}
                 to={item.path}
+                onClick={handleScrollTop}
               >
                 {item.display}
               </Link>
@@ -66,7 +67,7 @@ const Header = () => {
         </ul>
         <div className="header__search" ref={searchBarRef}>
           <span className="header__search__btn">
-            <i className="bx bx-search"></i>
+            <i className="bx bx-search bx-sm"></i>
           </span>
           <input
             type="text"
@@ -75,7 +76,7 @@ const Header = () => {
           />
         </div>
         <div className="mobile-search__btn" onClick={handleMobileSearchBtn}>
-          <i className="bx bx-search" ref={searchIconRef}></i>
+          <i className="bx bx-search bx-md" ref={searchIconRef}></i>
         </div>
       </div>
     </header>

@@ -5,6 +5,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -15,7 +16,7 @@ body {
   background-color: $bodyBg;
 
   padding-top: $headerHeight;
-  // overflow-x: hidden;
+  overflow-x: hidden;
 
   @include tablet {
     padding-top: $tabletHeaderHeight;
