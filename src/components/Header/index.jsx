@@ -1,19 +1,22 @@
 import clsx from 'clsx';
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import './Header.scss';
 import logo from '../../assets/logo.png';
-import MobileMenu from './MobileMenu';
-import { headerNav } from '../../constants';
+import { headerNav, mobileWidth } from '../../constants';
 import { handleScrollTop } from '../../utils';
+import './Header.scss';
+import MobileMenu from './MobileMenu';
 
 const Header = () => {
   const { pathname } = useLocation();
+
   const searchIconRef = useRef(null);
   const searchBarRef = useRef(null);
+  const searchInputRef = useRef(null);
+
   const menuRef = useRef(null);
-  const navRef = useRef(null);
+  const navBarRef = useRef(null);
 
   const activeIndex = useMemo(() => {
     const index = headerNav.findIndex(({ path }) => path === pathname);
@@ -32,27 +35,57 @@ const Header = () => {
     }
   };
 
-  const handleMobileHeaderNav = useCallback(() => {
+  const handleMobileNavBar = useCallback(() => {
     menuRef.current.toggle();
 
     if (menuRef.current.contains) {
       document.body.classList.add('nav-bar');
-      navRef.current.classList.add('active');
+      navBarRef.current.classList.add('active');
     } else {
       document.body.classList.remove('nav-bar');
-      navRef.current.classList.remove('active');
+      navBarRef.current.classList.remove('active');
     }
   }, []);
+
+  const handleHideMobileSearch = () => {
+    if (searchBarRef.current.classList.contains('active')) {
+      document.body.classList.remove('search-bar');
+      searchIconRef.current.classList.replace('bx-x', 'bx-search');
+      searchBarRef.current.classList.remove('active');
+      searchInputRef.current.value = '';
+    }
+    return null;
+  };
+
+  const handleHideMobileMenu = () => {
+    if (menuRef.current.contains) {
+      document.body.classList.remove('nav-bar');
+      navBarRef.current.classList.remove('active');
+      menuRef.current.inactive();
+    }
+    return null;
+  };
+
+  useEffect(() => {
+    const handleOutMoblieDevice = () => {
+      if (window.innerWidth >= mobileWidth) {
+        handleHideMobileMenu();
+        handleHideMobileSearch();
+      }
+    };
+    window.addEventListener('resize', handleOutMoblieDevice);
+    return () => window.removeEventListener('resize', handleOutMoblieDevice);
+  });
 
   return (
     <header className="header">
       <div className="header__wrap container">
-        <MobileMenu onClick={handleMobileHeaderNav} ref={menuRef} />
+        <MobileMenu onClick={handleMobileNavBar} ref={menuRef} />
         <Link className="header__logo" to="/" onClick={handleScrollTop}>
           <img src={logo} alt="Logo movies" />
           DMOVIES
         </Link>
-        <ul className="header__nav" ref={navRef}>
+        <ul className="header__nav" ref={navBarRef}>
           {headerNav.map((item, i) => (
             <li key={i}>
               <Link
@@ -73,6 +106,8 @@ const Header = () => {
             type="text"
             className="header__search__input"
             placeholder="Enter your keyword..."
+            ref={searchInputRef}
+            onBlur={handleHideMobileSearch}
           />
         </div>
         <div className="mobile-search__btn" onClick={handleMobileSearchBtn}>

@@ -26,7 +26,7 @@ Modal.propTypes = {
   onClose: PropTypes.func,
 };
 
-export const ModalContent = ({ children, onClick }) => {
+const ModalContent = ({ children, onClick }) => {
   const handlePropagation = (e) => {
     e.stopPropagation();
   };

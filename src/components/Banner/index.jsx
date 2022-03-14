@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 import tmdbApi, { category, movieType } from '../../api/tmdpApi';
-import BannerItem from './BannerItem';
 import TrailerModal from '../TrailerModal';
 import './Banner.scss';
+import BannerItem from './BannerItem';
 
 const Banner = () => {
   const [movies, setMovies] = useState([]);
@@ -63,7 +63,7 @@ const Banner = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-      
+
       {movies.map(({ id }) => {
         return <TrailerModal key={id} id={id} />;
       })}

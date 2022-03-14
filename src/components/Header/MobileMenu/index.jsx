@@ -1,7 +1,7 @@
 import React, { useImperativeHandle, useRef } from 'react';
 import './MobileMenu.scss';
 
-const MobileMenu = ({ onClick }, ref) => {
+const MobileMenu = ({ onClick, onBlur }, ref) => {
   const menuRef = useRef(null);
 
   useImperativeHandle(ref, () => ({
@@ -24,6 +24,7 @@ const MobileMenu = ({ onClick }, ref) => {
     }
     return null;
   };
+
   return (
     <div className="hamburger-menu" onClick={handleClick} ref={menuRef}>
       <div className="hamburger"></div>

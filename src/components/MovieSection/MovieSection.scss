@@ -17,9 +17,52 @@
       bottom: 0;
       left: 0;
       height: 1px;
-      width: 160px;
+      width: 60%;
       border-radius: 4px;
       background-color: $mainColor;
+    }
+  }
+
+  &__dropdown-filter {
+    position: relative;
+
+    &.active &__list {
+      visibility: 1;
+      opacity: 1;
+    }
+    &__list {
+      position: absolute;
+      top: calc(100% + 4px);
+      right: 0;
+
+      background-color: $sliver;
+      border-radius: 8px;
+      padding: 12px 20px;
+      z-index: 4;
+
+      visibility: 0;
+      opacity: 0;
+      transition: visibility 0.4s, opacity 0.4s;
+
+      & > li {
+        @include flex(center, flex-start);
+        color: $black;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #d9d8d8;
+        }
+
+        & > input {
+          cursor: pointer;
+        }
+        & > label {
+          min-width: 120px;
+          padding: 4px 8px;
+          cursor: pointer;
+        }
+      }
     }
   }
 }

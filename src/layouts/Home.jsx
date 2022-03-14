@@ -6,17 +6,15 @@ const Home = () => {
   return (
     <>
       <Banner />
-      <div className="main-content ">
-        <div className="container">
-          {movieSections.map((content, i) => (
-            <MovieSection
-              key={i}
-              content={content}
-              viewAllBtn={!!content?.path}
-              filterMode={!!content?.filters}
-            />
-          ))}
-        </div>
+      <div className="container">
+        {movieSections.map((content, i) => (
+          <MovieSection
+            key={i}
+            content={content}
+            viewAllBtn={!!content?.path}
+            horizontalFilter={!!content?.horizontalFilter}
+          />
+        ))}
       </div>
     </>
   );

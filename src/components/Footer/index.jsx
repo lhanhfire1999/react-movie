@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { footerSections } from '../../constants';
+import { footerLinks } from '../../constants';
 import { handleScrollTop } from '../../utils';
 import './Footer.scss';
 
@@ -47,7 +47,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          {footerSections.map((item, i) => (
+          {footerLinks.map((item, i) => (
             <div className="col-lg-3 col-md-6 col-6" key={i}>
               <div className="footer__content flex">
                 <h3 className="footer__content__title">{item.title}</h3>

@@ -56,6 +56,11 @@ li {
 
 .section {
   margin-top: 3rem;
+
+  @include mobile {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 }
 
 .mb-1 {

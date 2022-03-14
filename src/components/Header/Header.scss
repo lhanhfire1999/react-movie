@@ -8,6 +8,7 @@
   height: $headerHeight;
   box-shadow: $shadow;
   background-color: $black;
+  user-select: none;
   z-index: 9;
 
   @media (hover: hover) {
@@ -26,7 +27,7 @@
 
   &__wrap {
     height: 100%;
-    padding: 0 12px;
+    padding: 0 8px;
     @include flex(center, space-between);
     flex-wrap: wrap;
 

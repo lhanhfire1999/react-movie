@@ -1,22 +1,22 @@
 import React, { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { NotFound } from '../components';
+
+import { MovieSection, NotFound } from '../components';
+import { movieGenres } from '../constants';
 
 const Category = () => {
   const { category } = useParams();
-  const title = useMemo(() => {
-    if (category === 'movie') {
-      return 'Movie';
-    } else if (category === 'tv') {
-      return 'Tv Series';
-    }
-    return null;
-  }, [category]);
+
+  const movieGenre = useMemo(() => movieGenres?.[category], [category]);
 
   return (
     <>
-      {!title && <NotFound />}
-      {title && <h1>{title}</h1>}
+      {!movieGenre && <NotFound />}
+      {movieGenre && (
+        <div className="container">
+          <MovieSection content={movieGenre} verticalFilter />
+        </div>
+      )}
     </>
   );
 };

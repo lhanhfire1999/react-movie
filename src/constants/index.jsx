@@ -1,5 +1,7 @@
 import tmdbApi, { category, movieType, tvType } from '../api/tmdpApi';
+import { convertFilterName } from '../utils';
 
+export const mobileWidth = 740;
 export const headerNav = [
   { display: 'home', path: '/' },
   { display: 'movies', path: '/movie' },
@@ -7,41 +9,7 @@ export const headerNav = [
   { display: 'filter', path: '/search' },
 ];
 
-export const movieSections = [
-  {
-    title: 'Recommended',
-    defaultApi() {
-      return tmdbApi.getTrendingList(category.all);
-    },
-    get filters() {
-      const that = this;
-
-      return {
-        all: () => that.defaultApi(),
-        movie: () => tmdbApi.getTrendingList(category.movie),
-        tv: () => tmdbApi.getTrendingList(category.tv),
-      };
-    },
-  },
-
-  {
-    title: 'Popular Movies',
-    path: '/movie',
-    defaultApi() {
-      return tmdbApi.getMovieList(movieType.popular);
-    },
-  },
-
-  {
-    title: 'Popular Tv Series',
-    path: '/tv',
-    defaultApi() {
-      return tmdbApi.getTvList(tvType.popular);
-    },
-  },
-];
-
-export const footerSections = [
+export const footerLinks = [
   {
     title: 'Browse',
     childrens: [
@@ -59,6 +27,69 @@ export const footerSections = [
       { title: 'Contact Us', path: '/' },
       { title: 'Terms of Use', path: '/' },
     ],
+  },
+];
+
+// Category page
+export const movieGenres = {
+  movie: {
+    display: 'Movies',
+    defaultFilter: movieType.popular,
+    filters: {
+      [movieType.popular]: (params) =>
+        tmdbApi.getMovieList(movieType.popular, params),
+      [movieType.top_rated]: (params) =>
+        tmdbApi.getMovieList(movieType.top_rated, params),
+      [movieType.trending]: (params) =>
+        tmdbApi.getTrendingList(movieType.trending, params),
+    },
+    path: '/movie',
+  },
+
+  tv: {
+    display: 'Tv Series',
+    defaultFilter: tvType.popular,
+    filters: {
+      [tvType.popular]: (params) => tmdbApi.getTvList(tvType.popular, params),
+      [tvType.top_rated]: (params) =>
+        tmdbApi.getTvList(tvType.top_rated, params),
+      [tvType.trending]: (params) =>
+        tmdbApi.getTrendingList(tvType.trending, params),
+    },
+    path: '/tv',
+  },
+};
+
+// Home Page
+export const movieSections = [
+  {
+    display: 'Recommended',
+    defaultFilter: 'movies',
+    filters: {
+      movies: (params) => tmdbApi.getTrendingList(category.movie, params),
+      tv_series: (params) => tmdbApi.getTrendingList(category.tv, params),
+      trending: (params) => tmdbApi.getTrendingList(category.all, params),
+    },
+    filterIcons: {
+      movies: 'bx-trending-up',
+      tv_series: 'bx-tv',
+      trending: 'bx-movie',
+    },
+    horizontalFilter: true,
+  },
+
+  {
+    ...movieGenres.movie,
+    display: `${convertFilterName(movieGenres.movie.defaultFilter)} ${
+      movieGenres.movie.display
+    }`,
+  },
+
+  {
+    ...movieGenres.tv,
+    display: `${convertFilterName(movieGenres.tv.defaultFilter)} ${
+      movieGenres.tv.display
+    }`,
   },
 ];
 

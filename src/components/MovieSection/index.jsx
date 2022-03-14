@@ -1,30 +1,55 @@
-import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useEffect, useRef, useState } from 'react';
 
+import { convertFilterName } from '../../utils';
 import Button from '../Button';
-import './MovieSection.scss';
 import MovieCard from '../MovieCard';
+import './MovieSection.scss';
 
-const MovieSection = ({ content, viewAllBtn, filterMode }) => {
+const MovieSection = ({
+  content,
+  viewAllBtn,
+  horizontalFilter,
+  verticalFilter,
+}) => {
   const [movies, setMovies] = useState([]);
-  const [filter, setFilter] = useState('all');
+  const [filter, setFilter] = useState(content?.defaultFilter);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const handleFilter = (key) => {
+  const dropdownFilterRef = useRef(null);
+
+  const handleHorizontaFilter = (key) => {
     setFilter(key);
   };
 
+  const handleVerticalFilter = (key) => {
+    handleHideVerticalFilter();
+    setFilter(key);
+  };
+
+  const handleHideVerticalFilter = () => {
+    dropdownFilterRef.current.classList.remove('active');
+  };
+
+  useEffect(() => {
+    setFilter(content?.defaultFilter);
+  }, [content]);
+
   useEffect(() => {
     (async () => {
-      const response = await (content?.filters?.[filter]() ??
-        content?.defaultApi());
+      const response = await content?.filters?.[filter]({
+        params: { page: currentPage },
+      });
       setMovies(response.results);
     })();
-  }, [content, filter]);
+  }, [content, filter, currentPage]);
 
   return (
     <div className="movie-section section">
       <header className="movie-section__header mb-2">
-        <h1 className="movie-section__title ">{content?.title}</h1>
+        <h1 className="movie-section__title ">
+          {content?.title ?? content?.display}
+        </h1>
         {viewAllBtn && (
           <Button
             icon="bxs-chevron-right"
@@ -37,33 +62,56 @@ const MovieSection = ({ content, viewAllBtn, filterMode }) => {
           </Button>
         )}
 
-        {filterMode && (
+        {horizontalFilter && (
           <div className="movie-section__filters">
             {Object.keys(content?.filters).map((name, i) => (
               <Button
                 key={i}
-                onClick={() => handleFilter(name)}
+                onClick={() => handleHorizontaFilter(name)}
                 sizeS
-                icon={
-                  name === 'all'
-                    ? 'bx-trending-up'
-                    : name === 'tv'
-                    ? 'bx-tv'
-                    : 'bx-movie'
-                }
+                icon={content?.filterIcons?.[name]}
                 color={filter === name ? 'primary' : 'sliver'}
               >
-                {name === 'all'
-                  ? 'Trending'
-                  : name === 'tv'
-                  ? 'Tv Series'
-                  : name.slice(0, 1).toUpperCase() + name.slice(1)}
+                {convertFilterName(name)}
               </Button>
             ))}
           </div>
         )}
-      </header>
 
+        {verticalFilter && (
+          <div
+            className="movie-section__dropdown-filter"
+            ref={dropdownFilterRef}
+            onBlur={handleHideVerticalFilter}
+          >
+            <Button
+              sizeS
+              color="sliver"
+              icon="bxs-sort-alt bx-xs"
+              onClick={() =>
+                dropdownFilterRef.current.classList.toggle('active')
+              }
+            >
+              Sort
+            </Button>
+
+            <ul className="movie-section__dropdown-filter__list">
+              {Object.keys(content?.filters).map((name, i) => (
+                <li className="movie-section__dropdown-filter__item" key={i}>
+                  <input
+                    type="radio"
+                    id={name}
+                    value={name}
+                    checked={name === filter}
+                    onChange={(e) => handleVerticalFilter(e.target.value)}
+                  />
+                  <label htmlFor={name}>{convertFilterName(name)}</label>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </header>
       <div className="row">
         {movies.map((movie) => (
           <MovieCard
@@ -72,7 +120,8 @@ const MovieSection = ({ content, viewAllBtn, filterMode }) => {
             posterUrl={movie?.poster_path}
             title={movie?.title ?? movie?.name}
             releaseDate={movie?.release_date ?? movie?.first_air_date}
-            type={movie?.media_type ?? content?.path}
+            type={movie?.media_type}
+            path={content?.path}
           />
         ))}
       </div>
@@ -83,7 +132,8 @@ const MovieSection = ({ content, viewAllBtn, filterMode }) => {
 MovieSection.propTypes = {
   content: PropTypes.object.isRequired,
   viewAllBtn: PropTypes.bool,
-  filterMode: PropTypes.bool,
+  horizontalFilter: PropTypes.bool,
+  verticalFilter: PropTypes.bool,
 };
 
 export default React.memo(MovieSection);

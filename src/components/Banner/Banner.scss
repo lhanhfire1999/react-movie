@@ -95,9 +95,15 @@
         &__actions {
           @include flex;
           flex-wrap: wrap;
-          margin-top: 2rem;
+
+          margin-top: 1.5rem;
           font-size: $fontSizeMedium;
           width: 100%;
+
+          & > * {
+            margin-top: 0.5rem;
+          }
+
           @include bannerAnimation(0, -100px, true);
         }
       }

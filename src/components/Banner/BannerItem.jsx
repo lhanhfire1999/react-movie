@@ -1,11 +1,10 @@
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { useMemo, useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import apiConfig from '../../api/apiConfig';
 import tmdbApi, { category } from '../../api/tmdpApi';
 import { noVideoUrl, videoUrl } from '../../constants';
-
 import Button from '../Button';
 
 const BannerItem = ({ movies, active }) => {
