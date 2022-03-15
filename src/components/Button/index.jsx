@@ -5,7 +5,16 @@ import { Link } from 'react-router-dom';
 
 import './Button.scss';
 
-const Button = ({ children, onClick, linkTo, color, sizeS, icon, reverse }) => {
+const Button = ({
+  children,
+  onClick,
+  linkTo,
+  color,
+  sizeS,
+  icon,
+  reverse,
+  disabled,
+}) => {
   const handleClick = () => {
     if (onClick && typeof onClick === 'function') {
       return onClick();
@@ -22,6 +31,7 @@ const Button = ({ children, onClick, linkTo, color, sizeS, icon, reverse }) => {
             'btn--size-s': sizeS,
             reverse,
           })}
+          disabled={disabled}
           onClick={handleClick}
         >
           {icon && <i className={clsx('bx', { [icon]: icon })}></i>}
@@ -54,6 +64,7 @@ Button.propTypes = {
   color: PropTypes.string,
   icon: PropTypes.string,
   reverse: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 export default React.memo(Button);

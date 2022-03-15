@@ -14,7 +14,7 @@ const Category = () => {
       {!movieGenre && <NotFound />}
       {movieGenre && (
         <div className="container">
-          <MovieSection content={movieGenre} verticalFilter />
+          <MovieSection content={movieGenre} verticalFilter loadMoreBtn />
         </div>
       )}
     </>

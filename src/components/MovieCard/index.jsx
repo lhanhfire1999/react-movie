@@ -11,7 +11,7 @@ const MovieCard = ({ id, posterUrl, title, releaseDate, type, path }) => {
     return posterUrl ? apiConfig.w200Image(posterUrl) : unavailablePoster;
   }, [posterUrl]);
 
-  const yearRelease = useMemo(() => releaseDate.slice(0, 4), [releaseDate]);
+  const yearRelease = useMemo(() => releaseDate?.slice(0, 4), [releaseDate]);
 
   const movieType = useMemo(() => {
     if (type) {

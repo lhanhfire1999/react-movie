@@ -1,0 +1,35 @@
+@use '../../scss/abstracts/' as *;
+
+.loading {
+  position: absolute;
+  display: flex;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  &__ball {
+    width: 12px;
+    height: 12px;
+    background-color: $mainColor;
+    border-radius: 50%;
+    margin: 4px;
+    animation: jumb 0.5s ease-in infinite;
+
+    &:nth-of-type(2) {
+      animation-delay: 0.1s;
+    }
+    &:nth-of-type(3) {
+      animation-delay: 0.2s;
+    }
+  }
+
+  @keyframes jumb {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+}

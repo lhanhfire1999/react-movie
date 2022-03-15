@@ -2,6 +2,7 @@ import tmdbApi, { category, movieType, tvType } from '../api/tmdpApi';
 import { convertFilterName } from '../utils';
 
 export const mobileWidth = 740;
+export const limitPage = 500;
 export const headerNav = [
   { display: 'home', path: '/' },
   { display: 'movies', path: '/movie' },

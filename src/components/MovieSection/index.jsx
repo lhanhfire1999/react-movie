@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
 
+import { limitPage } from '../../constants';
 import { convertFilterName } from '../../utils';
 import Button from '../Button';
 import MovieCard from '../MovieCard';
@@ -11,20 +12,20 @@ const MovieSection = ({
   viewAllBtn,
   horizontalFilter,
   verticalFilter,
+  loadMoreBtn,
 }) => {
   const [movies, setMovies] = useState([]);
   const [filter, setFilter] = useState(content?.defaultFilter);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loadMore, setLoadMore] = useState({ loading: false, hidden: false });
 
   const dropdownFilterRef = useRef(null);
 
-  const handleHorizontaFilter = (key) => {
-    setFilter(key);
-  };
-
   const handleVerticalFilter = (key) => {
-    handleHideVerticalFilter();
     setFilter(key);
+    handleHideVerticalFilter();
+    setCurrentPage(1);
+    setLoadMore({ loading: false, hidden: false });
   };
 
   const handleHideVerticalFilter = () => {
@@ -33,14 +34,41 @@ const MovieSection = ({
 
   useEffect(() => {
     setFilter(content?.defaultFilter);
+    setCurrentPage(1);
+    setLoadMore({ loading: false, hidden: false });
   }, [content]);
 
   useEffect(() => {
     (async () => {
-      const response = await content?.filters?.[filter]({
-        params: { page: currentPage },
+      setLoadMore((prev) => {
+        if (currentPage > limitPage) {
+          return { ...prev, loading: true, hidden: true };
+        }
+        return { ...prev, loading: true };
       });
-      setMovies(response.results);
+
+      try {
+        const response = await content?.filters?.[filter]({
+          params: { page: currentPage },
+        });
+
+        setMovies((prev) => {
+          if (currentPage !== 1 && currentPage <= limitPage) {
+            const filters = response.results.filter((item) => {
+              return !prev.find(({ id }) => item.id === id) && item;
+            });
+            return [...prev, ...filters];
+          }
+          if (currentPage > limitPage) {
+            return prev;
+          }
+          return response.results;
+        });
+
+        setLoadMore((prev) => ({ ...prev, loading: false }));
+      } catch (err) {
+        throw new Error(err);
+      }
     })();
   }, [content, filter, currentPage]);
 
@@ -67,7 +95,7 @@ const MovieSection = ({
             {Object.keys(content?.filters).map((name, i) => (
               <Button
                 key={i}
-                onClick={() => handleHorizontaFilter(name)}
+                onClick={() => setFilter(name)}
                 sizeS
                 icon={content?.filterIcons?.[name]}
                 color={filter === name ? 'primary' : 'sliver'}
@@ -92,7 +120,7 @@ const MovieSection = ({
                 dropdownFilterRef.current.classList.toggle('active')
               }
             >
-              Sort
+              Sort Filter
             </Button>
 
             <ul className="movie-section__dropdown-filter__list">
@@ -112,6 +140,7 @@ const MovieSection = ({
           </div>
         )}
       </header>
+
       <div className="row">
         {movies.map((movie) => (
           <MovieCard
@@ -125,6 +154,20 @@ const MovieSection = ({
           />
         ))}
       </div>
+
+      {loadMoreBtn && !loadMore.hidden && (
+        <div className="movie-section__load-more">
+          <Button
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+            color="primary"
+            sizeS
+            icon={loadMore.loading ? 'bx-loader-circle bx-spin bx-sz' : ''}
+            disabled={loadMore.loading}
+          >
+            {loadMore.loading ? 'Loading' : 'Load More'}
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
@@ -134,6 +177,7 @@ MovieSection.propTypes = {
   viewAllBtn: PropTypes.bool,
   horizontalFilter: PropTypes.bool,
   verticalFilter: PropTypes.bool,
+  loadMoreBtn: PropTypes.bool,
 };
 
 export default React.memo(MovieSection);
