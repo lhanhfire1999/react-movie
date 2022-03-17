@@ -1,0 +1,101 @@
+@use '../../scss/abstracts/' as *;
+
+.movie-details {
+  .banner {
+    position: relative;
+    height: 40vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 100px;
+      width: 100%;
+      background: linear-gradient(to top, #181616, transparent);
+    }
+  }
+
+  .movie__content {
+    position: relative;
+    margin-top: -200px;
+
+    @include flex(flex-start, flex-start);
+
+    @include mobile {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+
+    &__poster {
+      flex: 1;
+      padding-left: 2rem;
+      padding-right: 2rem;
+
+      @include tablet {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      @include mobile {
+        padding-left: 0;
+        padding-right: 0;
+        display: none;
+      }
+
+      &__img {
+        box-shadow: $shadow;
+        padding-top: 165%;
+        border-radius: 12px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+    }
+
+    &__info {
+      width: 70%;
+      padding-left: 2rem;
+
+      @include mobile {
+        width: 100%;
+        padding-left: 0;
+      }
+
+      & > * {
+        margin-bottom: 1.5rem;
+      }
+
+      & > .title {
+        font-size: 3rem;
+        font-weight: 700;
+      }
+
+      & > .overview {
+        text-align: justify;
+      }
+
+      & > .genres {
+        display: flex;
+        flex-wrap: wrap;
+
+        & > * {
+          margin-top: 0.25rem;
+        }
+      }
+    }
+  }
+}

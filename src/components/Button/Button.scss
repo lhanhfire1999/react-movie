@@ -48,18 +48,18 @@
 
   &--primary {
     background-color: $mainColor;
-  }
 
-  &--primary:hover {
-    background-color: rgba($mainColor, 0.8);
+    &:hover {
+      background-color: rgba($mainColor, 0.8);
+    }
   }
 
   &--info {
     background-color: $blue;
-  }
 
-  &--info:hover {
-    background-color: rgba($blue, 0.8);
+    &:hover {
+      background-color: rgba($blue, 0.8);
+    }
   }
 
   &--transparent:hover {
@@ -69,10 +69,21 @@
   &--sliver {
     color: $black;
     background-color: $sliver;
+
+    &:hover {
+      background-color: rgba($sliver, 0.8);
+    }
   }
 
-  &--sliver:hover {
-    background-color: rgba($sliver, 0.8);
+  &--border {
+    border-radius: 8px;
+    border: 1px solid $white;
+    transition: opacity 0.3s, transform 0.3s;
+
+    &:hover {
+      opacity: 0.7;
+      transform: translateX(2px);
+    }
   }
 
   &--disabled,

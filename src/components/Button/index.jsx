@@ -14,6 +14,7 @@ const Button = ({
   icon,
   reverse,
   disabled,
+  border,
 }) => {
   const handleClick = () => {
     if (onClick && typeof onClick === 'function') {
@@ -29,6 +30,7 @@ const Button = ({
           className={clsx('btn', {
             [`btn--${color}`]: color,
             'btn--size-s': sizeS,
+            'btn--border': border,
             reverse,
           })}
           disabled={disabled}
@@ -44,6 +46,7 @@ const Button = ({
           className={clsx('btn', {
             [`btn--${color}`]: color,
             'btn--size-s': sizeS,
+            'btn--border': border,
             reverse,
           })}
           onClick={handleClick}
@@ -65,6 +68,7 @@ Button.propTypes = {
   icon: PropTypes.string,
   reverse: PropTypes.bool,
   disabled: PropTypes.bool,
+  border: PropTypes.bool,
 };
 
 export default React.memo(Button);

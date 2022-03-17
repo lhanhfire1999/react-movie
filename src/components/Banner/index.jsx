@@ -14,14 +14,12 @@ const Banner = () => {
 
   useEffect(() => {
     (async () => {
-      const params = { page: 1 };
       try {
-        const moviesAPI = tmdbApi.getMovieList(movieType.popular, {
-          params,
-        });
-        const genresAPI = tmdbApi.getGenres(category.movie);
-        const responses = await Promise.all([moviesAPI, genresAPI]);
-
+        const { getMovieList, getGenres } = tmdbApi;
+        const responses = await Promise.all([
+          getMovieList(movieType.popular),
+          getGenres(category.movie),
+        ]);
         const result = responses[0].results.slice(0, 3);
 
         result.forEach((movie) => {

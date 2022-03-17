@@ -41,7 +41,7 @@ const tmdbApi = {
     const url = `search/${category[cate]}`;
     return axiosClient.get(url, params ?? { params: { page: 1 } });
   },
-  detail: (cate, id, params) => {
+  getDetails: (cate, id, params) => {
     const url = `${category[cate]}/${id}`;
     return axiosClient.get(url, params ?? { params: { page: 1 } });
   },
@@ -49,7 +49,7 @@ const tmdbApi = {
     const url = `${category[cate]}/${id}/credits`;
     return axiosClient.get(url, { params: {} });
   },
-  similar: (cate, id) => {
+  getSimilarMovies: (cate, id) => {
     const url = `${category[cate]}/${id}/similar`;
     return axiosClient.get(url, { params: {} });
   },

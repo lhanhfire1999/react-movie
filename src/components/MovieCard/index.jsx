@@ -22,7 +22,7 @@ const MovieCard = ({ id, posterUrl, title, releaseDate, type, path }) => {
 
   return (
     <div className="col-lg-2 col-md-3 col-6 ">
-      <Link to={`${path}/${id}`} className="movie-card mb-2">
+      <Link to={`${path ?? type}/${id}`} className="movie-card mb-2">
         <div className="movie-card__wrapper-poster">
           <div
             className="movie-card__poster"

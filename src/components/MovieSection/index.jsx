@@ -5,6 +5,7 @@ import { limitPage } from '../../constants';
 import { convertFilterName } from '../../utils';
 import Button from '../Button';
 import MovieCard from '../MovieCard';
+import Title from '../Title';
 import './MovieSection.scss';
 
 const MovieSection = ({
@@ -75,9 +76,10 @@ const MovieSection = ({
   return (
     <div className="movie-section section">
       <header className="movie-section__header mb-2">
-        <h1 className="movie-section__title ">
-          {content?.title ?? content?.display}
-        </h1>
+        <Title>
+          <h1>{content?.title ?? content?.display}</h1>
+        </Title>
+
         {viewAllBtn && (
           <Button
             icon="bxs-chevron-right"

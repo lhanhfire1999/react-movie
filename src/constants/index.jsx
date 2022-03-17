@@ -2,7 +2,12 @@ import tmdbApi, { category, movieType, tvType } from '../api/tmdpApi';
 import { convertFilterName } from '../utils';
 
 export const mobileWidth = 740;
+
 export const limitPage = 500;
+
+export const $ = document.querySelector.bind(document);
+export const $$ = document.querySelectorAll.bind(document);
+
 export const headerNav = [
   { display: 'home', path: '/' },
   { display: 'movies', path: '/movie' },
@@ -108,5 +113,3 @@ export const noPicture =
 
 export const noVideoUrl =
   'https://www.youtube-nocookie/embed/watch?v=039nv45oth8';
-
-export const videoUrl = 'https://www.youtube-nocookie.com/embed/';

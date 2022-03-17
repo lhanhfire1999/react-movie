@@ -5,6 +5,7 @@ import { useCallback, useMemo } from 'react';
 import apiConfig from '../../api/apiConfig';
 import tmdbApi, { category } from '../../api/tmdpApi';
 import { noVideoUrl, videoUrl } from '../../constants';
+import { getTrailerUrl } from '../../utils';
 import Button from '../Button';
 
 const BannerItem = ({ movies, active }) => {
@@ -36,10 +37,7 @@ const BannerItem = ({ movies, active }) => {
     const trailerVideos = await tmdbApi.getVideos(category.movie, id);
 
     if (trailerVideos.results.length > 0) {
-      iframe.setAttribute(
-        'src',
-        videoUrl + trailerVideos.results[0].key + '?autoplay=1'
-      );
+      iframe.setAttribute('src', getTrailerUrl(trailerVideos.results[0].key));
     } else {
       iframe.setAttribute('src', noVideoUrl);
     }
