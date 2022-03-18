@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import tmdbApi, { category } from '../../api/tmdpApi';
+import tmdbApi from '../../api/tmdpApi';
 import { $ } from '../../constants';
 import Loading from '../Loading';
 import Details from './Details';
@@ -22,7 +22,7 @@ const MovieDetails = ({ id, genre }) => {
         setState((prev) => ({
           ...prev,
           movieInfo: responses[0],
-          cast: responses[1]?.cast?.slice(0, 5),
+          cast: responses[1]?.cast?.slice(0, 10),
         }));
 
         $(`#loading-${genre}-${id}`).classList.remove('active');
@@ -45,7 +45,7 @@ const MovieDetails = ({ id, genre }) => {
 
 MovieDetails.propTypes = {
   id: PropTypes.string.isRequired,
-  genre: PropTypes.string,
+  genre: PropTypes.string.isRequired,
 };
 
 export default MovieDetails;

@@ -145,15 +145,16 @@ const MovieSection = ({
 
       <div className="row">
         {movies.map((movie) => (
-          <MovieCard
-            key={movie?.id}
-            id={movie?.id}
-            posterUrl={movie?.poster_path}
-            title={movie?.title ?? movie?.name}
-            releaseDate={movie?.release_date ?? movie?.first_air_date}
-            type={movie?.media_type}
-            path={content?.path}
-          />
+          <div className="col-lg-2 col-md-3 col-6 " key={movie?.id}>
+            <MovieCard
+              id={movie?.id}
+              posterUrl={movie?.poster_path}
+              title={movie?.title ?? movie?.name}
+              releaseDate={movie?.release_date ?? movie?.first_air_date}
+              type={movie?.media_type}
+              path={content?.path}
+            />
+          </div>
         ))}
       </div>
 

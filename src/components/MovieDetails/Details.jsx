@@ -61,13 +61,15 @@ const Details = ({ movieInfo, cast }) => {
             ))}
           </div>
 
-          <div className="cast">
-            <Title>
-              <h1>Cast</h1>
-            </Title>
+          {cast.length > 0 && (
+            <div className="cast">
+              <Title>
+                <h1 className="cast__title">Series Cast</h1>
+              </Title>
 
-            <CaseList cast={cast} />
-          </div>
+              <CaseList cast={cast} />
+            </div>
+          )}
 
           {/* <Button onClick={() => null} icon="bx-play bx-sm" color="primary">
             Play Now

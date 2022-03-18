@@ -82,10 +82,12 @@
       & > .title {
         font-size: 3rem;
         font-weight: 700;
+        text-shadow: $shadow;
       }
 
       & > .overview {
         text-align: justify;
+        text-shadow: $shadow;
       }
 
       & > .genres {
@@ -94,6 +96,62 @@
 
         & > * {
           margin-top: 0.25rem;
+        }
+      }
+    }
+
+    .cast {
+      &__title {
+        font-size: 1.5rem;
+      }
+
+      .cast-list {
+        display: flex;
+        padding-bottom: 1rem;
+        max-width: 100%;
+        overflow-x: auto;
+
+        &::-webkit-scrollbar {
+          height: 8px;
+          background-color: $boxBg;
+          border-radius: 8px;
+        }
+        &::-webkit-scrollbar-thumb:horizontal {
+          background-color: rgba($mainColor, 0.7);
+          border-radius: 8px;
+        }
+
+        & > * + * {
+          margin-left: 12px;
+        }
+        .cast-card {
+          flex-shrink: 0;
+          user-select: none;
+          width: 140px;
+          background-color: $boxBg;
+          border-radius: 8px;
+          box-shadow: $shadow;
+          &__infos {
+            padding: 4px;
+          }
+
+          &__img {
+            padding-top: 150%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            margin-bottom: 0.25rem;
+          }
+          &__name {
+            font-size: 1.2rem;
+            @include hiddenLine(1);
+          }
+
+          &__character {
+            font-size: 0.8rem;
+          }
         }
       }
     }

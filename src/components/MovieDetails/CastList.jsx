@@ -1,8 +1,39 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import apiConfig from '../../api/apiConfig';
+import { noPicture } from '../../constants';
 
 const CastList = ({ cast }) => {
-  return <div>CastList</div>;
+  return (
+    <ul className="cast-list">
+      {cast?.map((item) => (
+        <li key={item?.id} className="cast-card">
+          <div
+            className="cast-card__img"
+            title={item?.name || item?.original_name}
+            style={{
+              backgroundImage: `url(${
+                item?.profile_path
+                  ? apiConfig.w200Image(item?.profile_path)
+                  : noPicture
+              })`,
+            }}
+          ></div>
+          <div className="cast-card__infos">
+            <h3
+              className="cast-card__name"
+              title={item?.name || item?.original_name}
+            >
+              {item?.name || item?.original_name}
+            </h3>
+            <h4 className="cast-card__character" title={item?.character}>
+              {item?.character}
+            </h4>
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
 };
 
 CastList.propTypes = {

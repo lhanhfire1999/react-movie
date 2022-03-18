@@ -21,26 +21,24 @@ const MovieCard = ({ id, posterUrl, title, releaseDate, type, path }) => {
   }, [type, path]);
 
   return (
-    <div className="col-lg-2 col-md-3 col-6 ">
-      <Link to={`${path ?? type}/${id}`} className="movie-card mb-2">
-        <div className="movie-card__wrapper-poster">
-          <div
-            className="movie-card__poster"
-            style={{ backgroundImage: `url(${bgImgUrl})` }}
-          />
-          <span className="movie-card__play-icon">
-            <i className="bx bx-play-circle"></i>
-          </span>
-        </div>
-        <div className="movie-card__content">
-          <h3 className="movie-card__content__name">{title}</h3>
-          <ul className="movie-card__content__infos">
-            <li>{yearRelease}</li>
-            <li>{movieType}</li>
-          </ul>
-        </div>
-      </Link>
-    </div>
+    <Link to={`${path ?? type}/${id}`} className="movie-card mb-2">
+      <div className="movie-card__wrapper-poster">
+        <div
+          className="movie-card__poster"
+          style={{ backgroundImage: `url(${bgImgUrl})` }}
+        />
+        <span className="movie-card__play-icon">
+          <i className="bx bx-play-circle"></i>
+        </span>
+      </div>
+      <div className="movie-card__content">
+        <h3 className="movie-card__content__name">{title}</h3>
+        <ul className="movie-card__content__infos">
+          <li>{yearRelease}</li>
+          <li>{movieType}</li>
+        </ul>
+      </div>
+    </Link>
   );
 };
 
