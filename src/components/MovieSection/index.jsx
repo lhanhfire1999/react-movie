@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { limitPage } from '../../constants';
 import { convertFilterName } from '../../utils';
 import Button from '../Button';
-import MovieCard from '../MovieCard';
+import MovieList from '../MovieList';
 import Title from '../Title';
 import './MovieSection.scss';
 
@@ -143,20 +143,7 @@ const MovieSection = ({
         )}
       </header>
 
-      <div className="row">
-        {movies.map((movie) => (
-          <div className="col-lg-2 col-md-3 col-6 " key={movie?.id}>
-            <MovieCard
-              id={movie?.id}
-              posterUrl={movie?.poster_path}
-              title={movie?.title ?? movie?.name}
-              releaseDate={movie?.release_date ?? movie?.first_air_date}
-              type={movie?.media_type}
-              path={content?.path}
-            />
-          </div>
-        ))}
-      </div>
+      <MovieList movies={movies} path={content?.path} />
 
       {loadMoreBtn && !loadMore.hidden && (
         <div className="movie-section__load-more">

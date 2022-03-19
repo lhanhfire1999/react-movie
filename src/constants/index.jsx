@@ -47,7 +47,7 @@ export const movieGenres = {
       [movieType.top_rated]: (params) =>
         tmdbApi.getMovieList(movieType.top_rated, params),
       [movieType.trending]: (params) =>
-        tmdbApi.getTrendingList(movieType.trending, params),
+        tmdbApi.getTrendingList(category.movie, params),
     },
     path: '/movie',
   },
@@ -60,7 +60,7 @@ export const movieGenres = {
       [tvType.top_rated]: (params) =>
         tmdbApi.getTvList(tvType.top_rated, params),
       [tvType.trending]: (params) =>
-        tmdbApi.getTrendingList(tvType.trending, params),
+        tmdbApi.getTrendingList(category.tv, params),
     },
     path: '/tv',
   },

@@ -1,4 +1,6 @@
 import React, { useCallback } from 'react';
+
+import PropTypes from 'prop-types';
 import Modal from '../Modal';
 
 const TrailerModal = ({ id }) => {
@@ -19,6 +21,10 @@ const TrailerModal = ({ id }) => {
       />
     </Modal>
   );
+};
+
+TrailerModal.propTypes = {
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 export default React.memo(TrailerModal);

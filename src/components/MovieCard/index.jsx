@@ -1,12 +1,15 @@
 import PropTypes from 'prop-types';
 import React, { useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import apiConfig from '../../api/apiConfig';
 import { unavailablePoster } from '../../constants';
 import './MovieCard.scss';
 
-const MovieCard = ({ id, posterUrl, title, releaseDate, type, path }) => {
+const MovieCard = ({ id, posterUrl, title, releaseDate, genre, path }) => {
+  const { movieId } = useParams();
+  let navigate = useNavigate();
+
   const bgImgUrl = useMemo(() => {
     return posterUrl ? apiConfig.w200Image(posterUrl) : unavailablePoster;
   }, [posterUrl]);
@@ -14,14 +17,24 @@ const MovieCard = ({ id, posterUrl, title, releaseDate, type, path }) => {
   const yearRelease = useMemo(() => releaseDate?.slice(0, 4), [releaseDate]);
 
   const movieType = useMemo(() => {
-    if (type) {
-      return type === 'tv' ? 'TV' : 'Movie';
+    if (genre || path) {
+      if (genre) {
+        return genre === 'tv' ? 'TV' : 'Movie';
+      }
+      return path?.slice(1) === 'tv' ? 'TV' : 'Movie';
     }
-    return path?.slice(1) === 'tv' ? 'TV' : 'Movie';
-  }, [type, path]);
+    return null;
+  }, [genre, path]);
+
+  const handleNavigate = () => {
+    if (movieId) {
+      return navigate(`${path}/${id}`);
+    }
+    return navigate(`${path ?? genre}/${id}`);
+  };
 
   return (
-    <Link to={`${path ?? type}/${id}`} className="movie-card mb-2">
+    <div onClick={handleNavigate} className="movie-card mb-2">
       <div className="movie-card__wrapper-poster">
         <div
           className="movie-card__poster"
@@ -38,7 +51,7 @@ const MovieCard = ({ id, posterUrl, title, releaseDate, type, path }) => {
           <li>{movieType}</li>
         </ul>
       </div>
-    </Link>
+    </div>
   );
 };
 
@@ -47,7 +60,7 @@ MovieCard.propTypes = {
   title: PropTypes.string,
   posterUrl: PropTypes.string,
   releaseDate: PropTypes.string,
-  type: PropTypes.string,
+  genre: PropTypes.string,
   path: PropTypes.string,
 };
 

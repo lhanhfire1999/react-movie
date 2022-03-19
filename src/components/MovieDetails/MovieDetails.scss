@@ -1,6 +1,7 @@
 @use '../../scss/abstracts/' as *;
 
 .movie-details {
+  position: relative;
   .banner {
     position: relative;
     height: 40vh;
@@ -101,10 +102,6 @@
     }
 
     .cast {
-      &__title {
-        font-size: 1.5rem;
-      }
-
       .cast-list {
         display: flex;
         padding-bottom: 1rem;
@@ -136,7 +133,7 @@
           }
 
           &__img {
-            padding-top: 150%;
+            padding-top: 120%;
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
@@ -151,8 +148,96 @@
 
           &__character {
             font-size: 0.8rem;
+            @include hiddenLine(2);
           }
         }
+      }
+    }
+  }
+
+  .trailer {
+    .trailer-list {
+      position: relative;
+      display: flex;
+      max-width: 100%;
+      overflow-x: auto;
+
+      &::-webkit-scrollbar {
+        height: 8px;
+        background-color: $boxBg;
+        border-radius: 8px;
+      }
+      &::-webkit-scrollbar-thumb:horizontal {
+        background-color: rgba($mainColor, 0.7);
+        border-radius: 8px;
+      }
+
+      & > li + li {
+        margin-left: 12px;
+      }
+
+      .btns {
+        display: none;
+        .btn-next,
+        .btn-back {
+          position: absolute;
+          top: 0;
+          height: 100%;
+          width: 120px;
+          color: $mainColor;
+          cursor: pointer;
+          z-index: 5;
+        }
+
+        .btn-back {
+          @include flex(center, flex-start);
+          left: 0;
+          background: linear-gradient(to left, transparent, $bodyBg 70%);
+        }
+
+        .btn-next {
+          @include flex(center, flex-end);
+          right: 0;
+          background: linear-gradient(to right, transparent, $bodyBg 70%);
+        }
+      }
+    }
+
+    .trailer-card {
+      flex-shrink: 0;
+      width: 532px;
+      position: relative;
+      // cursor: pointer;
+
+      &__img {
+        position: relative;
+        padding-top: 50%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin-bottom: 0.5rem;
+        &::before {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          height: 80px;
+          width: 100%;
+          background: linear-gradient(to top, $bodyBg, transparent);
+        }
+
+        .play-btn {
+          position: absolute;
+          bottom: 12px;
+          left: 12px;
+          @include flex;
+        }
+      }
+
+      &__title {
+        font-size: 1rem;
+        text-align: justify;
+        @include hiddenLine(1);
       }
     }
   }

@@ -127,16 +127,23 @@
       }
 
       .item-poster {
-        @include flex;
-        flex: 1;
-        height: 380px;
-        margin-left: 4rem;
+        margin: 0 auto;
+        width: 50%;
+        height: 100%;
         @include bannerAnimation(0, 100px, true);
 
-        & > img {
-          height: 100%;
+        @include tablet {
+          width: 80%;
+          margin: 0 0 0 auto;
+        }
+
+        &__img {
+          padding-top: 160%;
           border-radius: 4px;
           box-shadow: $shadow;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
         }
       }
     }

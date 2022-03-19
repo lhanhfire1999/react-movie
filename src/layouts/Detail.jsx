@@ -3,19 +3,19 @@ import { useParams } from 'react-router-dom';
 import { MovieDetails, NotFound } from '../components';
 
 const Detail = () => {
-  const { category, id } = useParams();
+  const { category, movieId } = useParams();
 
   const isMatchParam = useMemo(() => {
-    if ((category === 'movie' || category === 'tv') && !isNaN(id)) {
+    if ((category === 'movie' || category === 'tv') && !isNaN(movieId)) {
       return true;
     }
     return null;
-  }, [category, id]);
+  }, [category, movieId]);
 
   return (
     <>
       {!isMatchParam && <NotFound />}
-      {isMatchParam && <MovieDetails id={id} genre={category} />}
+      {isMatchParam && <MovieDetails id={movieId} genre={category} />}
     </>
   );
 };

@@ -11,7 +11,25 @@ export const convertFilterName = (name) => {
 };
 
 export const getTrailerThumbUrl = (key) => {
-  return `https://img.youtube.com/vi/${key}/mqdefault.jpg`;
+  const baseUrl = 'https://i1.ytimg.com/vi';
+
+  return {
+    get default() {
+      return `${baseUrl}/${key}/default.jpg`;
+    },
+    get medium() {
+      return `${baseUrl}/${key}/mqdefault.jpg`;
+    },
+    get high() {
+      return `${baseUrl}/${key}/hqdefault.jpg`;
+    },
+    get standard() {
+      return `${baseUrl}/${key}/sddefault.jpg`;
+    },
+    get maxresdefault() {
+      return `${baseUrl}/${key}/maxresdefault.jpg`;
+    },
+  };
 };
 
 export const getTrailerUrl = (key) => {

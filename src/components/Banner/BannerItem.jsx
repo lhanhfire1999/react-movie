@@ -81,7 +81,10 @@ const BannerItem = ({ movies, active }) => {
             </div>
             <div className="col-lg-6 col-md-6 col-0">
               <div className="item-poster">
-                <img src={imgUrl.w500} alt={title} />
+                <div
+                  className="item-poster__img"
+                  style={{ backgroundImage: `url(${imgUrl.w500})` }}
+                />
               </div>
             </div>
           </div>

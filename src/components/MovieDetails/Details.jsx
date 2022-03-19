@@ -5,8 +5,10 @@ import { unavailableLandscape, unavailablePoster } from '../../constants';
 import Button from '../Button';
 import Title from '../Title';
 import CaseList from './CastList';
+import TrailerList from './TrailerList';
+import MovieList from '../MovieList';
 
-const Details = ({ movieInfo, cast }) => {
+const Details = ({ movieInfo, cast, videos, similars, genre }) => {
   const {
     title,
     name,
@@ -61,12 +63,11 @@ const Details = ({ movieInfo, cast }) => {
             ))}
           </div>
 
-          {cast.length > 0 && (
+          {cast?.length > 0 && (
             <div className="cast">
               <Title>
-                <h1 className="cast__title">Series Cast</h1>
+                <h2>Series Cast</h2>
               </Title>
-
               <CaseList cast={cast} />
             </div>
           )}
@@ -76,6 +77,29 @@ const Details = ({ movieInfo, cast }) => {
           </Button> */}
         </div>
       </div>
+
+      {videos?.length > 0 && (
+        <div className="trailer section">
+          <div className="container">
+            <Title>
+              <h2>Trailer</h2>
+            </Title>
+            <TrailerList videos={videos} />
+          </div>
+        </div>
+      )}
+
+      {similars?.length > 0 && (
+        <div className="similar section">
+          <div className="container">
+            <Title>
+              <h2>More Like This</h2>
+            </Title>
+
+            <MovieList movies={similars} genre={genre} path={`/${genre}`} />
+          </div>
+        </div>
+      )}
     </>
   );
 };
@@ -83,6 +107,9 @@ const Details = ({ movieInfo, cast }) => {
 Details.propTypes = {
   movieInfo: PropTypes.object.isRequired,
   cast: PropTypes.array.isRequired,
+  videos: PropTypes.array.isRequired,
+  similars: PropTypes.array.isRequired,
+  genre: PropTypes.string,
 };
 
 export default Details;
