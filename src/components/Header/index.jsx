@@ -1,6 +1,7 @@
 import clsx from 'clsx';
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import queryString from 'query-string';
 
 import logo from '../../assets/logo.png';
 import { headerNav, mobileWidth } from '../../constants';
@@ -10,6 +11,7 @@ import MobileMenu from './MobileMenu';
 
 const Header = () => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   const searchIconRef = useRef(null);
   const searchBarRef = useRef(null);
@@ -47,16 +49,6 @@ const Header = () => {
     }
   }, []);
 
-  const handleHideMobileSearch = () => {
-    if (searchBarRef.current.classList.contains('active')) {
-      document.body.classList.remove('search-bar');
-      searchIconRef.current.classList.replace('bx-x', 'bx-search');
-      searchBarRef.current.classList.remove('active');
-      searchInputRef.current.value = '';
-    }
-    return null;
-  };
-
   const handleHideMobileMenu = () => {
     if (menuRef.current.contains) {
       document.body.classList.remove('nav-bar');
@@ -66,7 +58,35 @@ const Header = () => {
     return null;
   };
 
-  useEffect(() => {
+  const handleHideMobileSearch = () => {
+    if (searchBarRef.current.classList.contains('active')) {
+      document.body.classList.remove('search-bar');
+      searchIconRef.current.classList.replace('bx-x', 'bx-search');
+      searchBarRef.current.classList.remove('active');
+    }
+    searchInputRef.current.value = '';
+    return null;
+  };
+
+  const handleSearch = (e) => {
+    if (e.key === 'Enter' || e.code === 'Enter') {
+      if (e.target.value.trim()) {
+        navigate(
+          `/search?${queryString.stringify({ keyword: e.target.value })}`
+        );
+        e.target.blur();
+      }
+    }
+  };
+  const handleClickSearchBtn = () => {
+    const { value } = searchInputRef.current;
+    if (value.trim()) {
+      navigate(`/search?${queryString.stringify({ keyword: value })}`);
+    }
+    return null;
+  };
+
+  useLayoutEffect(() => {
     const handleOutMoblieDevice = () => {
       if (window.innerWidth >= mobileWidth) {
         handleHideMobileMenu();
@@ -99,7 +119,10 @@ const Header = () => {
           ))}
         </ul>
         <div className="header__search" ref={searchBarRef}>
-          <span className="header__search__btn">
+          <span
+            className="header__search__btn"
+            onMouseDown={handleClickSearchBtn}
+          >
             <i className="bx bx-search bx-sm"></i>
           </span>
           <input
@@ -108,6 +131,7 @@ const Header = () => {
             placeholder="Enter your keyword..."
             ref={searchInputRef}
             onBlur={handleHideMobileSearch}
+            onKeyUp={handleSearch}
           />
         </div>
         <div className="mobile-search__btn" onClick={handleMobileSearchBtn}>

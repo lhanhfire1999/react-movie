@@ -23,7 +23,7 @@ const MovieCard = ({ id, posterUrl, title, releaseDate, genre, path }) => {
     if (movieId) {
       return navigate(`${path}/${id}`);
     }
-    return navigate(`${path ?? genre}/${id}`);
+    return navigate(`${path ? path + '/' + id : '/' + genre + '/' + id}`);
   };
 
   return (
