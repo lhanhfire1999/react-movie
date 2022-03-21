@@ -1,20 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { useMemo } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 
-import apiConfig from '../../api/apiConfig';
-import { unavailablePoster } from '../../constants';
+import { useNavigate, useParams } from 'react-router-dom';
+import { usePosterPath, useReleaseYear } from '../../utils';
 import './MovieCard.scss';
 
 const MovieCard = ({ id, posterUrl, title, releaseDate, genre, path }) => {
   const { movieId } = useParams();
-  let navigate = useNavigate();
-
-  const bgImgUrl = useMemo(() => {
-    return posterUrl ? apiConfig.w200Image(posterUrl) : unavailablePoster;
-  }, [posterUrl]);
-
-  const yearRelease = useMemo(() => releaseDate?.slice(0, 4), [releaseDate]);
+  const navigate = useNavigate();
 
   const movieType = useMemo(() => {
     if (genre || path) {
@@ -38,7 +31,7 @@ const MovieCard = ({ id, posterUrl, title, releaseDate, genre, path }) => {
       <div className="movie-card__wrapper-poster">
         <div
           className="movie-card__poster"
-          style={{ backgroundImage: `url(${bgImgUrl})` }}
+          style={{ backgroundImage: `url(${usePosterPath(posterUrl)})` }}
         />
         <span className="movie-card__play-icon">
           <i className="bx bx-play-circle"></i>
@@ -47,7 +40,7 @@ const MovieCard = ({ id, posterUrl, title, releaseDate, genre, path }) => {
       <div className="movie-card__content">
         <h3 className="movie-card__content__name">{title}</h3>
         <ul className="movie-card__content__infos">
-          <li>{yearRelease}</li>
+          <li>{useReleaseYear(releaseDate)}</li>
           <li>{movieType}</li>
         </ul>
       </div>

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import apiConfig from '../../api/apiConfig';
-import { noPicture } from '../../constants';
+import { getProfilePath } from '../../utils';
 
 const CastList = ({ cast }) => {
   return (
@@ -12,11 +11,7 @@ const CastList = ({ cast }) => {
             className="cast-card__img"
             title={item?.name || item?.original_name}
             style={{
-              backgroundImage: `url(${
-                item?.profile_path
-                  ? apiConfig.w200Image(item?.profile_path)
-                  : noPicture
-              })`,
+              backgroundImage: `url(${getProfilePath(item?.profile_path)})`,
             }}
           ></div>
           <div className="cast-card__infos">

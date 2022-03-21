@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import tmdbApi from '../../api/tmdpApi';
 import { $ } from '../../constants';
 import { handleScrollTop } from '../../utils';

@@ -65,7 +65,7 @@ const TrailerList = ({ videos }) => {
               style={{
                 backgroundImage: `url(${
                   getTrailerThumbUrl(video?.key).standard
-                })  `,
+                })`,
               }}
             >
               <span className="play-btn">

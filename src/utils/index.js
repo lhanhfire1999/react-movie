@@ -1,8 +1,11 @@
-export const handleScrollTop = () => {
+import apiConfig from '../api/apiConfig';
+import { noPicture } from '../constants';
+
+const handleScrollTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
-export const convertFilterName = (name) => {
+const convertFilterName = (name) => {
   const filterName = name
     .split('_')
     .map((item) => `${item.slice(0, 1).toUpperCase() + item.slice(1)}`)
@@ -10,7 +13,7 @@ export const convertFilterName = (name) => {
   return filterName;
 };
 
-export const getTrailerThumbUrl = (key) => {
+const getTrailerThumbUrl = (key) => {
   const baseUrl = 'https://i1.ytimg.com/vi';
 
   return {
@@ -32,6 +35,20 @@ export const getTrailerThumbUrl = (key) => {
   };
 };
 
-export const getTrailerUrl = (key) => {
+const getTrailerUrl = (key) => {
   return `https://www.youtube-nocookie.com/embed/${key}?autoplay=1`;
 };
+
+const getProfilePath = (profile_path = '') => {
+  return profile_path ? apiConfig.w200Image(profile_path) : noPicture;
+};
+
+export {
+  handleScrollTop,
+  convertFilterName,
+  getTrailerThumbUrl,
+  getTrailerUrl,
+  getProfilePath,
+};
+
+export * from './hooks';

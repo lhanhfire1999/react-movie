@@ -2,10 +2,14 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { useCallback, useMemo } from 'react';
 
-import apiConfig from '../../api/apiConfig';
 import tmdbApi, { category } from '../../api/tmdpApi';
 import { noVideoUrl } from '../../constants';
-import { getTrailerUrl } from '../../utils';
+import {
+  getTrailerUrl,
+  useBackdropPath,
+  usePosterPath,
+  useReleaseYear,
+} from '../../utils';
 import Button from '../Button';
 
 const BannerItem = ({ movies, active }) => {
@@ -20,15 +24,6 @@ const BannerItem = ({ movies, active }) => {
     poster_path,
   } = movies;
 
-  const imgUrl = useMemo(() => {
-    const original = apiConfig.originalImage(
-      backdrop_path ? backdrop_path : poster_path
-    );
-    const w500 = apiConfig.w500Image(poster_path ? poster_path : backdrop_path);
-    return { original, w500 };
-  }, [backdrop_path, poster_path]);
-
-  const releaseDate = useMemo(() => release_date.slice(0, 4), [release_date]);
   const genreNames = useMemo(() => genre_names.join(', '), [genre_names]);
 
   const handleOpenTrailerModal = useCallback(async () => {
@@ -47,7 +42,7 @@ const BannerItem = ({ movies, active }) => {
   return (
     <div
       className={clsx('banner__item', { active })}
-      style={{ backgroundImage: `url(${imgUrl.original})` }}
+      style={{ backgroundImage: `url(${useBackdropPath(backdrop_path)})` }}
     >
       <div className=" item-wraper">
         <div className="container">
@@ -57,7 +52,7 @@ const BannerItem = ({ movies, active }) => {
                 <h1 className="item-content__title">{title}</h1>
                 <ul className="item-content__infos">
                   <li>{vote_average}/10</li>
-                  <li>{releaseDate}</li>
+                  <li>{useReleaseYear(release_date)}</li>
                   <li>{genreNames}</li>
                 </ul>
                 <p className="item-content__description">{overview}</p>
@@ -83,7 +78,9 @@ const BannerItem = ({ movies, active }) => {
               <div className="item-poster">
                 <div
                   className="item-poster__img"
-                  style={{ backgroundImage: `url(${imgUrl.w500})` }}
+                  style={{
+                    backgroundImage: `url(${usePosterPath(poster_path)})`,
+                  }}
                 />
               </div>
             </div>
