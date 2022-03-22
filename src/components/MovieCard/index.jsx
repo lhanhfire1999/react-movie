@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { useMemo } from 'react';
 
-import { useNavigate, useParams } from 'react-router-dom';
-import { usePosterPath, useReleaseYear } from '../../utils';
+import { useNavigate } from 'react-router-dom';
+import { handleScrollTop, usePosterPath, useReleaseYear } from '../../utils';
 import './MovieCard.scss';
 
 const MovieCard = ({ id, posterUrl, title, releaseDate, genre, path }) => {
-  const { movieId } = useParams();
   const navigate = useNavigate();
 
   const movieType = useMemo(() => {
@@ -20,10 +19,11 @@ const MovieCard = ({ id, posterUrl, title, releaseDate, genre, path }) => {
   }, [genre, path]);
 
   const handleNavigate = () => {
-    if (movieId) {
+    handleScrollTop();
+    if (path) {
       return navigate(`${path}/${id}`);
     }
-    return navigate(`${path ? path + '/' + id : '/' + genre + '/' + id}`);
+    return navigate(`/${genre}/${id}`);
   };
 
   return (

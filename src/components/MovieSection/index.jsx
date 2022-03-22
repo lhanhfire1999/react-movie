@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { limitPage } from '../../constants';
 import { convertFilterName } from '../../utils';
 import Button from '../Button';
+import LoadMoreBtn from '../LoadMoreBtn';
 import MovieList from '../MovieList';
 import Title from '../Title';
 import './MovieSection.scss';
@@ -35,16 +36,13 @@ const MovieSection = ({
 
   useEffect(() => {
     setFilter(content?.defaultFilter);
-    setCurrentPage(1);
-    setLoadMore({ loading: false, hidden: false });
-  }, [content]);
+    loadMoreBtn && setCurrentPage(1);
+    loadMoreBtn && setLoadMore({ loading: false, hidden: false });
+  }, [content, loadMoreBtn]);
 
   useEffect(() => {
     (async () => {
       setLoadMore((prev) => {
-        if (currentPage > limitPage) {
-          return { ...prev, loading: true, hidden: true };
-        }
         return { ...prev, loading: true };
       });
 
@@ -56,7 +54,7 @@ const MovieSection = ({
         setMovies((prev) => {
           if (currentPage !== 1 && currentPage <= limitPage) {
             const filters = response.results.filter((item) => {
-              return !prev.find(({ id }) => item.id === id) && item;
+              return !prev.some(({ id }) => item.id === id);
             });
             return [...prev, ...filters];
           }
@@ -66,7 +64,12 @@ const MovieSection = ({
           return response.results;
         });
 
-        setLoadMore((prev) => ({ ...prev, loading: false }));
+        setLoadMore((prev) => {
+          if (currentPage > limitPage || currentPage >= response?.total_pages) {
+            return { ...prev, loading: true, hidden: true };
+          }
+          return { ...prev, loading: false };
+        });
       } catch (err) {
         throw new Error(err);
       }
@@ -76,9 +79,7 @@ const MovieSection = ({
   return (
     <div className="movie-section section">
       <header className="movie-section__header mb-2">
-        <Title>
-          <h1>{content?.title ?? content?.display}</h1>
-        </Title>
+        <Title>{content?.title ?? content?.display}</Title>
 
         {viewAllBtn && (
           <Button
@@ -146,17 +147,10 @@ const MovieSection = ({
       <MovieList movies={movies} path={content?.path} />
 
       {loadMoreBtn && !loadMore.hidden && (
-        <div className="movie-section__load-more">
-          <Button
-            onClick={() => setCurrentPage((prev) => prev + 1)}
-            color="primary"
-            sizeS
-            icon={loadMore.loading ? 'bx-loader-circle bx-spin bx-sz' : ''}
-            disabled={loadMore.loading}
-          >
-            {loadMore.loading ? 'Loading' : 'Load More'}
-          </Button>
-        </div>
+        <LoadMoreBtn
+          loading={loadMore.loading}
+          onClick={() => setCurrentPage((prev) => prev + 1)}
+        />
       )}
     </div>
   );

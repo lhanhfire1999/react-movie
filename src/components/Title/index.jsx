@@ -4,11 +4,11 @@ import React from 'react';
 import './Title.scss';
 
 const Title = ({ children }) => {
-  return <div className="header-title">{children}</div>;
+  return <h2 className="header-title">{children}</h2>;
 };
 
 Title.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.string,
 };
 
 export default Title;

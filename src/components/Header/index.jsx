@@ -1,7 +1,11 @@
 import clsx from 'clsx';
 import React, { useCallback, useLayoutEffect, useMemo, useRef } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import queryString from 'query-string';
+import {
+  createSearchParams,
+  Link,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 
 import logo from '../../assets/logo.png';
 import { headerNav, mobileWidth } from '../../constants';
@@ -71,17 +75,27 @@ const Header = () => {
   const handleSearch = (e) => {
     if (e.key === 'Enter' || e.code === 'Enter') {
       if (e.target.value.trim()) {
-        navigate(
-          `/search?${queryString.stringify({ keyword: e.target.value })}`
-        );
+        navigate({
+          pathname: 'search',
+          search: createSearchParams({
+            keyword: e.target.value,
+          }).toString(),
+        });
+
         e.target.blur();
       }
     }
   };
   const handleClickSearchBtn = () => {
     const { value } = searchInputRef.current;
+
     if (value.trim()) {
-      navigate(`/search?${queryString.stringify({ keyword: value })}`);
+      navigate({
+        pathname: 'search',
+        search: createSearchParams({
+          keyword: value,
+        }).toString(),
+      });
     }
     return null;
   };

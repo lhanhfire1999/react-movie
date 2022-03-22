@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import tmdbApi from '../../api/tmdpApi';
-import { $ } from '../../constants';
-import { handleScrollTop } from '../../utils';
-import Loading from '../Loading';
+import Preloader from '../Preloader';
 import TrailerModal from '../TrailerModal';
 import Details from './Details';
 import './MovieDetails.scss';
@@ -16,15 +14,11 @@ const MovieDetails = ({ id, genre }) => {
     videos: [],
     similars: [],
   });
-
-  useLayoutEffect(() => {
-    $(`#loading-${genre}-${id}`).classList.add('active');
-  }, [genre, id]);
+  const [preloader, setPreloader] = useState(true);
 
   useEffect(() => {
     (async () => {
       try {
-        handleScrollTop();
         const { credits, getDetails, getVideos, getSimilarMovies } = tmdbApi;
         const responses = await Promise.all([
           getDetails(genre, id),
@@ -41,7 +35,7 @@ const MovieDetails = ({ id, genre }) => {
           similars: responses[3]?.results,
         }));
 
-        $(`#loading-${genre}-${id}`).classList.remove('active');
+        setPreloader(false);
       } catch (err) {
         throw new Error(err);
       }
@@ -50,7 +44,7 @@ const MovieDetails = ({ id, genre }) => {
 
   return (
     <div className="movie-details">
-      <Loading id={`loading-${genre}-${id}`} />
+      {preloader && <Preloader />}
       {Object.keys(state.movieInfo).length > 0 && (
         <Details
           movieInfo={state.movieInfo}

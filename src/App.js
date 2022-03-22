@@ -1,8 +1,9 @@
 import 'boxicons/css/boxicons.min.css';
 import './scss/App.scss';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Category, Detail, Home, MainLayout, Search } from './layouts';
+import { Category, Detail, Home, MainLayout } from './layouts';
 import { NotFound } from './components';
+import MovieSearch from './components/MovieSearch';
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path=":category" element={<Category />} />
           <Route path=":category/:movieId" element={<Detail />} />
-          <Route path="search" element={<Search />} />
+          <Route path="search" element={<MovieSearch />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

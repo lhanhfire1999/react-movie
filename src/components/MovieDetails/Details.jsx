@@ -20,6 +20,8 @@ const Details = ({ movieInfo, cast, videos, similars, genre }) => {
     poster_path,
   } = movieInfo;
 
+  const releaseYear = useReleaseYear(release_date || last_air_date);
+
   return (
     <>
       <div
@@ -35,9 +37,9 @@ const Details = ({ movieInfo, cast, videos, similars, genre }) => {
           ></div>
         </div>
         <div className="movie__content__info">
-          <h1 className="title">{`${title ?? name} (${useReleaseYear(
-            release_date || last_air_date
-          )})`}</h1>
+          <h1 className="title">
+            {title ?? name} {releaseYear && `(${releaseYear})`}
+          </h1>
           <p className="overview">{overview}</p>
           <div className="genres">
             {genres?.map((genre) => (
@@ -47,27 +49,23 @@ const Details = ({ movieInfo, cast, videos, similars, genre }) => {
             ))}
           </div>
 
+          <Button onClick={() => null} icon="bx-play bx-sm" color="primary">
+            Play Now
+          </Button>
+
           {cast?.length > 0 && (
             <div className="cast">
-              <Title>
-                <h2>Series Cast</h2>
-              </Title>
+              <Title>Series Cast</Title>
               <CaseList cast={cast} />
             </div>
           )}
-
-          {/* <Button onClick={() => null} icon="bx-play bx-sm" color="primary">
-            Play Now
-          </Button> */}
         </div>
       </div>
 
       {videos?.length > 0 && (
         <div className="trailer section">
           <div className="container">
-            <Title>
-              <h2>Trailer</h2>
-            </Title>
+            <Title>Trailer</Title>
             <TrailerList videos={videos} />
           </div>
         </div>
@@ -76,9 +74,7 @@ const Details = ({ movieInfo, cast, videos, similars, genre }) => {
       {similars?.length > 0 && (
         <div className="similar section">
           <div className="container">
-            <Title>
-              <h2>More Like This</h2>
-            </Title>
+            <Title>More Like This</Title>
 
             <MovieList movies={similars} genre={genre} path={`/${genre}`} />
           </div>

@@ -12,7 +12,7 @@ export const headerNav = [
   { display: 'home', path: '/' },
   { display: 'movies', path: '/movie' },
   { display: 'tv series', path: '/tv' },
-  { display: 'filter', path: '/search' },
+  { display: 'filter', path: '/filter' },
 ];
 
 export const footerLinks = [
