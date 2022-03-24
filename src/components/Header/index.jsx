@@ -75,6 +75,7 @@ const Header = () => {
   const handleSearch = (e) => {
     if (e.key === 'Enter' || e.code === 'Enter') {
       if (e.target.value.trim()) {
+        handleScrollTop();
         navigate({
           pathname: 'search',
           search: createSearchParams({
@@ -88,7 +89,7 @@ const Header = () => {
   };
   const handleClickSearchBtn = () => {
     const { value } = searchInputRef.current;
-
+    handleScrollTop();
     if (value.trim()) {
       navigate({
         pathname: 'search',

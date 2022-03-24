@@ -21,45 +21,49 @@ export const tvType = {
 };
 
 const tmdbApi = {
-  getTrendingList: (cate, params) => {
+  getTrendingList(cate, params) {
     const url = `trending/${category[cate]}/day`;
     return axiosClient.get(url, params ?? { params: { page: 1 } });
   },
-  getMovieList: (type, params) => {
+  getMovieList(type, params) {
     const url = `movie/${movieType[type]}`;
     return axiosClient.get(url, params ?? { params: { page: 1 } });
   },
-  getTvList: (type, params) => {
+  getTvList(type, params) {
     const url = `tv/${tvType[type]}`;
     return axiosClient.get(url, params ?? { params: { page: 1 } });
   },
-  getVideos: (cate, id) => {
+  getVideos(cate, id) {
     const url = `${category[cate]}/${id}/videos`;
     return axiosClient.get(url, { params: {} });
   },
-  getDetails: (cate, id, params) => {
+  getDetails(cate, id, params) {
     const url = `${category[cate]}/${id}`;
     return axiosClient.get(url, params ?? { params: { page: 1 } });
   },
-  credits: (cate, id) => {
+  credits(cate, id) {
     const url = `${category[cate]}/${id}/credits`;
     return axiosClient.get(url, { params: {} });
   },
-  getSimilarMovies: (cate, id) => {
+  getSimilarMovies(cate, id) {
     const url = `${category[cate]}/${id}/similar`;
     return axiosClient.get(url, { params: {} });
   },
-  getTVSeasons: (id, season_number) => {
+  getTVSeasons(id, season_number) {
     const url = `tv/${id}/season/${season_number}`;
     return axiosClient.get(url, { params: {} });
   },
-  getGenres: (cate) => {
+  getGenres(cate) {
     const url = `genre/${category[cate]}/list`;
     return axiosClient.get(url, { params: {} });
   },
-  searchMultiByKeyword: (params) => {
-    const url = `search/multi`;
+  searchMultiByKeyword(params) {
+    const url = 'search/multi';
     return axiosClient.get(url, params ?? { params: { page: 1 } });
+  },
+  getCountries() {
+    const url = 'configuration/countries';
+    return axiosClient.get(url, { params: {} });
   },
 };
 

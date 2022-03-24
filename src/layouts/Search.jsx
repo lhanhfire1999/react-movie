@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import Title from '../Title';
-import tmdbApi from '../../api/tmdpApi';
-import MovieList from '../MovieList';
-import Preloader from '../Preloader';
-import LoadMoreBtn from '../LoadMoreBtn';
+import Title from '../components/Title';
+import tmdbApi from '../api/tmdpApi';
+import MovieList from '../components/MovieList';
+import Preloader from '../components/Preloader';
+import LoadMoreBtn from '../components/LoadMoreBtn';
 
-const MovieSearch = () => {
+const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -64,7 +64,7 @@ const MovieSearch = () => {
   };
 
   return (
-    <div className="search-movie section container">
+    <div className="section container">
       {preloader && <Preloader />}
       <Title>{`Result for: ${urlSearchParams.keyword}`}</Title>
 
@@ -79,4 +79,4 @@ const MovieSearch = () => {
   );
 };
 
-export default React.memo(MovieSearch);
+export default Search;

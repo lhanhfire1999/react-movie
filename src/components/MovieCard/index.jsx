@@ -38,7 +38,9 @@ const MovieCard = ({ id, posterUrl, title, releaseDate, genre, path }) => {
         </span>
       </div>
       <div className="movie-card__content">
-        <h3 className="movie-card__content__name">{title}</h3>
+        <h3 className="movie-card__content__name" title={title}>
+          {title}
+        </h3>
         <ul className="movie-card__content__infos">
           <li>{useReleaseYear(releaseDate)}</li>
           <li>{movieType}</li>

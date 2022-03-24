@@ -1,0 +1,39 @@
+@use '../../scss/abstracts/' as *;
+.filter-form {
+  @include flex('center', 'flex-start');
+  flex-wrap: wrap;
+
+  &__group {
+    margin: 8px;
+    position: relative;
+  }
+  &__control {
+    position: absolute;
+    top: calc(100% + 0.25rem);
+    left: 0;
+    background-color: $sliver;
+    color: $black;
+    width: calc(100% + 1rem);
+    padding: 1rem;
+    border-radius: 8px;
+    user-select: none;
+    z-index: 1000;
+
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.4s, visibility 0.4s;
+
+    &.active {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    & > li:hover {
+      background-color: #d9d8d8;
+    }
+
+    &--lg {
+      width: 600px;
+    }
+  }
+}

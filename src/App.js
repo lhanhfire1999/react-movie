@@ -1,9 +1,9 @@
 import 'boxicons/css/boxicons.min.css';
-import './scss/App.scss';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Category, Detail, Home, MainLayout } from './layouts';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import { NotFound } from './components';
-import MovieSearch from './components/MovieSearch';
+import { Category, Detail, Filter, Home, MainLayout, Search } from './layouts';
+import './scss/App.scss';
 
 function App() {
   return (
@@ -13,7 +13,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path=":category" element={<Category />} />
           <Route path=":category/:movieId" element={<Detail />} />
-          <Route path="search" element={<MovieSearch />} />
+          <Route path="search" element={<Search />} />
+          <Route path="filter" element={<Filter />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
