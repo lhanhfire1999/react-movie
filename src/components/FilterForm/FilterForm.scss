@@ -1,24 +1,40 @@
 @use '../../scss/abstracts/' as *;
 .filter-form {
-  @include flex('center', 'flex-start');
+  @include flex(center, flex-start);
   flex-wrap: wrap;
 
   &__group {
-    margin: 8px;
     position: relative;
+    margin-bottom: 12px;
+    margin-right: 12px;
   }
+
   &__control {
     position: absolute;
     top: calc(100% + 0.25rem);
     left: 0;
+    min-width: 100%;
+
     background-color: $sliver;
     color: $black;
-    width: calc(100% + 1rem);
-    padding: 1rem;
     border-radius: 8px;
-    user-select: none;
-    z-index: 1000;
+    padding: 1rem;
+    box-shadow: $shadow;
 
+    z-index: 1000;
+    user-select: none;
+
+    max-height: 300px;
+    overflow-y: auto;
+
+    & > li {
+      @include flex(center, flex-start);
+
+      padding: 0.5rem;
+      & > label {
+        margin-left: 0.5rem;
+      }
+    }
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.4s, visibility 0.4s;
@@ -29,11 +45,11 @@
     }
 
     & > li:hover {
-      background-color: #d9d8d8;
+      background-color: $sliverHover;
     }
-
-    &--lg {
-      width: 600px;
-    }
+  }
+  &__group.active &__control {
+    visibility: visible;
+    opacity: 1;
   }
 }

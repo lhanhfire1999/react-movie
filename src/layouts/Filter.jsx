@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { FilterForm, Title } from '../components';
 
-const Filter = (props) => {
+const Filter = () => {
   return (
-    <div className="container section">
+    <div className="container section" style={{ minHeight: '100vh' }}>
       <Title>Filter Movies</Title>
       <FilterForm />
     </div>

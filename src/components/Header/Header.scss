@@ -180,17 +180,15 @@
 
       &.active {
         display: flex;
-        animation: mobileSearch 0.4s linear;
+        animation: mobileSearch 0.3s linear;
       }
     }
 
     @keyframes mobileSearch {
       from {
-        top: 80%;
         opacity: 0;
       }
       to {
-        top: 100%;
         opacity: 1;
       }
     }

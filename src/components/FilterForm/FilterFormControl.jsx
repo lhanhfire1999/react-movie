@@ -7,7 +7,7 @@ const FilterFormControl = ({
   data,
   onClick,
   type,
-  checked,
+  checkedData,
   sizeWidth,
 }) => {
   const handleClick = (value) => {
@@ -24,19 +24,21 @@ const FilterFormControl = ({
           [`filter-form__control--${sizeWidth}`]: sizeWidth,
         })}
         onClick={(e) => e.stopPropagation()}
+        onMouseDown={(e) => e.preventDefault()}
       >
         {data.length > 0 &&
           data.map((item, i) => (
             <li
               key={item?.id ?? i}
               onClick={() => handleClick(item?.id ?? item)}
+              title={item?.name ?? item}
             >
               <input
                 type={type}
                 checked={
                   type === 'checkbox'
-                    ? checked?.includes(item?.id ?? item)
-                    : checked === item?.id
+                    ? checkedData?.includes(item?.id ?? item)
+                    : checkedData === item?.id
                 }
                 onChange={() => handleClick(item?.id ?? item)}
                 onClick={(e) => e.stopPropagation()}
@@ -68,7 +70,7 @@ FilterFormControl.propTypes = {
   ]),
   type: PropTypes.oneOf(['radio', 'checkbox']),
   onClick: PropTypes.func,
-  checked: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+  checkedData: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
 };
 
 export default React.memo(FilterFormControl);

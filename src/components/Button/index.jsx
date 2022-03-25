@@ -25,7 +25,7 @@ const Button = ({
 
   return (
     <>
-      {onClick && (
+      {!linkTo && (
         <button
           className={clsx('btn', {
             [`btn--${color}`]: color,

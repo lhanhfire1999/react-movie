@@ -34,7 +34,7 @@
         cursor: pointer;
 
         &:hover {
-          background-color: #d9d8d8;
+          background-color: $sliverHover;
         }
 
         & > input {
