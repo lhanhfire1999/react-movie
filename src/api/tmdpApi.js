@@ -65,6 +65,10 @@ const tmdbApi = {
     const url = 'configuration/countries';
     return axiosClient.get(url, { params: {} });
   },
+  getFilterMovies(cate, params) {
+    const url = `/discover/${cate}`;
+    return axiosClient.get(url, params);
+  },
 };
 
 export default tmdbApi;

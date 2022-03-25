@@ -92,7 +92,7 @@ const Header = () => {
     handleScrollTop();
     if (value.trim()) {
       navigate({
-        pathname: 'search',
+        pathname: '/search',
         search: createSearchParams({
           keyword: value,
         }).toString(),

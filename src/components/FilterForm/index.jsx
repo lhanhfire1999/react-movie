@@ -1,5 +1,7 @@
+import queryString from 'query-string';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
+import { useLocation, useNavigate } from 'react-router-dom';
 import { filterForm } from '../../constants';
 import Button from '../Button';
 import './FilterForm.scss';
@@ -13,9 +15,45 @@ const FilterForm = () => {
     releaseYear: [],
     sort: filterForm.sort.defaultChild,
   });
-
   const [apiGenres, setApiGenres] = useState([]);
 
+  const navigate = useNavigate();
+  const { search } = useLocation();
+
+  const hashSearchParams = useMemo(() => {
+    if (search) {
+      return queryString.parse(search);
+    }
+    return null;
+  }, [search]);
+
+  // re-setState when have search-params
+  useEffect(() => {
+    if (hashSearchParams) {
+      setformStates((prev) => {
+        const { type, country, releaseYear, sort, genre } = filterForm;
+        const states = {
+          ...prev,
+          type: hashSearchParams[type.paramKey],
+          sort: hashSearchParams[sort.paramKey],
+        };
+        if (hashSearchParams[genre.paramKey]) {
+          states['genre'] = hashSearchParams[genre.paramKey].split(',');
+        }
+        if (hashSearchParams[releaseYear.paramKey]) {
+          states['releaseYear'] =
+            hashSearchParams[releaseYear.paramKey].split(',');
+        }
+        if (hashSearchParams[country.paramKey]) {
+          states['country'] = hashSearchParams[country.paramKey].split(',');
+        }
+
+        return states;
+      });
+    }
+  }, [hashSearchParams]);
+
+  // get Api genre
   useEffect(() => {
     (async () => {
       const res = await filterForm.genre.children(formStates.type);
@@ -24,6 +62,7 @@ const FilterForm = () => {
     })();
   }, [formStates.type]);
 
+  // Set formStates
   const handleChangeRadio = useCallback((key, value) => {
     return setformStates((prev) => ({ ...prev, [key]: value }));
   }, []);
@@ -39,6 +78,7 @@ const FilterForm = () => {
     });
   }, []);
 
+  // Get info selectec
   const selectedTypeName = useMemo(() => {
     const selectedType = filterForm.type.children.find(
       (item) => item.id === formStates.type
@@ -81,6 +121,28 @@ const FilterForm = () => {
     if (filterGroupNode.classList.contains('active')) {
       filterGroupNode.classList.remove('active');
     }
+  };
+
+  const handleSubmit = () => {
+    const { type, genre, country, releaseYear, sort } = filterForm;
+    const searchParams = {
+      [type.paramKey]: formStates.type,
+      [sort.paramKey]: formStates.sort,
+    };
+    if (formStates.genre.length > 0) {
+      searchParams[genre.paramKey] = formStates.genre.toString();
+    }
+    if (formStates.country.length > 0) {
+      searchParams[country.paramKey] = formStates.country.toString();
+    }
+    if (formStates.releaseYear.length > 0) {
+      searchParams[releaseYear.paramKey] = formStates.releaseYear.toString();
+    }
+
+    navigate({
+      pathname: '/filter',
+      search: queryString.stringify(searchParams),
+    });
   };
 
   return (
@@ -171,7 +233,12 @@ const FilterForm = () => {
       </div>
 
       <div className="filter-form__group">
-        <Button sizeS color="primary" icon={filterForm.submit.icon}>
+        <Button
+          sizeS
+          color="primary"
+          icon={filterForm.submit.icon}
+          onClick={handleSubmit}
+        >
           {filterForm.submit.title}
         </Button>
       </div>

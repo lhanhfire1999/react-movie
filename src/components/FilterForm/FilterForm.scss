@@ -2,6 +2,7 @@
 .filter-form {
   @include flex(center, flex-start);
   flex-wrap: wrap;
+  margin-bottom: 1rem;
 
   &__group {
     position: relative;

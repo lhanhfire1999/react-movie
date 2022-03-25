@@ -37,7 +37,7 @@ const FilterFormControl = ({
                 type={type}
                 checked={
                   type === 'checkbox'
-                    ? checkedData?.includes(item?.id ?? item)
+                    ? checkedData?.includes(item?.id?.toString() ?? item)
                     : checkedData === item?.id
                 }
                 onChange={() => handleClick(item?.id ?? item)}

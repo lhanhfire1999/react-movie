@@ -104,6 +104,7 @@ export const filterForm = {
   type: {
     title: 'Type',
     icon: 'bxs-copy bx-xs',
+    paramKey: 'type',
     get defaultChild() {
       return this.children[0].id;
     },
@@ -195,7 +196,7 @@ export const filterForm = {
   sort: {
     title: 'Sort',
     icon: 'bxs-sort-alt bx-xs',
-    paramKey: 'primary_release_year',
+    paramKey: 'sort_by',
     get defaultChild() {
       return this.children[0].id;
     },
