@@ -30,7 +30,7 @@ const FilterFormControl = ({
           data.map((item, i) => (
             <li
               key={item?.id ?? i}
-              onClick={() => handleClick(item?.id ?? item)}
+              onClick={() => handleClick(item?.id?.toString() ?? item)}
               title={item?.name ?? item}
             >
               <input
@@ -40,7 +40,7 @@ const FilterFormControl = ({
                     ? checkedData?.includes(item?.id?.toString() ?? item)
                     : checkedData === item?.id
                 }
-                onChange={() => handleClick(item?.id ?? item)}
+                onChange={() => handleClick(item?.id?.toString() ?? item)}
                 onClick={(e) => e.stopPropagation()}
               />
               <label>{item?.name ?? item}</label>

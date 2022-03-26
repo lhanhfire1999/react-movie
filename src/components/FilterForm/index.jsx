@@ -58,13 +58,20 @@ const FilterForm = () => {
     (async () => {
       const res = await filterForm.genre.children(formStates.type);
       setApiGenres(res.genres);
-      setformStates((prev) => ({ ...prev, genre: [] }));
     })();
   }, [formStates.type]);
 
   // Set formStates
   const handleChangeRadio = useCallback((key, value) => {
-    return setformStates((prev) => ({ ...prev, [key]: value }));
+    return setformStates((prev) => {
+      if (prev[key] !== value) {
+        if (key === 'type') {
+          return { ...prev, [key]: value, genre: [] };
+        }
+        return { ...prev, [key]: value };
+      }
+      return prev;
+    });
   }, []);
 
   const handleChangeCheckbox = useCallback((key, value) => {
