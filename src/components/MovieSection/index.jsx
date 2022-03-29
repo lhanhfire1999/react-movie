@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
 
-import { limitPage } from '../../constants';
+import { limitTotalPages } from '../../constants';
 import { convertFilterName } from '../../utils';
 import Button from '../Button';
 import LoadMoreBtn from '../LoadMoreBtn';
@@ -52,20 +52,23 @@ const MovieSection = ({
         });
 
         setMovies((prev) => {
-          if (currentPage !== 1 && currentPage <= limitPage) {
+          if (currentPage !== 1 && currentPage <= limitTotalPages) {
             const filters = response.results.filter((item) => {
               return !prev.some(({ id }) => item.id === id);
             });
             return [...prev, ...filters];
           }
-          if (currentPage > limitPage) {
+          if (currentPage > limitTotalPages) {
             return prev;
           }
           return response.results;
         });
 
         setLoadMore((prev) => {
-          if (currentPage > limitPage || currentPage >= response?.total_pages) {
+          if (
+            currentPage > limitTotalPages ||
+            currentPage >= response?.total_pages
+          ) {
             return { ...prev, loading: true, hidden: true };
           }
           return { ...prev, loading: false };

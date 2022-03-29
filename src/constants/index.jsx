@@ -3,7 +3,7 @@ import { convertFilterName } from '../utils';
 
 export const mobileWidth = 740;
 
-export const limitPage = 500;
+export const limitTotalPages = 500;
 
 export const $ = document.querySelector.bind(document);
 export const $$ = document.querySelectorAll.bind(document);
@@ -210,6 +210,18 @@ export const filterForm = {
     title: 'Filter',
     icon: 'bxs-filter-alt bx-xs',
   },
+};
+
+// Pagination
+export const paginationIcons = {
+  left: [
+    { id: 'first-page', icon: 'bx bx-sm bxs-chevrons-left' },
+    { id: 'previous-page', icon: 'bx bx-sm bxs-chevron-left' },
+  ],
+  right: [
+    { id: 'next-page', icon: 'bx bx-sm bxs-chevron-right' },
+    { id: 'last-page', icon: 'bx bx-sm bxs-chevrons-right' },
+  ],
 };
 
 // contentModal and singleContent
