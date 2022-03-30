@@ -9,7 +9,7 @@ import { filterForm } from '../constants';
 
 const Filter = () => {
   const [movies, setMovies] = useState([]);
-  const [totalPages, setTotalPages] = useState(null);
+  const [totalPages, setTotalPages] = useState(0);
 
   const location = useLocation();
 
@@ -34,18 +34,16 @@ const Filter = () => {
   }, [hashSearchParams]);
 
   return (
-    <div className="container section" style={{ minHeight: '100vh' }}>
+    <div className="container section" style={{ minHeight: '50vh' }}>
       <Title>Filter Movies</Title>
       <FilterForm />
       {movies.length > 0 && (
         <MovieList movies={movies} genre={hashSearchParams.type} />
       )}
 
-      {totalPages && <Pagination totalPages={totalPages} />}
+      {!!totalPages && <Pagination totalPages={totalPages} />}
     </div>
   );
 };
-
-Filter.propTypes = {};
 
 export default Filter;

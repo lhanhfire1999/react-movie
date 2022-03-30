@@ -21,6 +21,14 @@
   }
 }
 
+@mixin hoverSupported {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
 @mixin mobile {
   @media only screen and (max-width: calc($tabletWidth - 1px)) {
     @content;

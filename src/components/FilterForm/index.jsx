@@ -1,7 +1,7 @@
 import queryString from 'query-string';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import { filterForm } from '../../constants';
 import Button from '../Button';
 import './FilterForm.scss';
@@ -18,7 +18,7 @@ const FilterForm = () => {
   const [apiGenres, setApiGenres] = useState([]);
 
   const navigate = useNavigate();
-  const { search } = useLocation();
+  const { pathname, search } = useLocation();
 
   const hashSearchParams = useMemo(() => {
     if (search) {
@@ -29,7 +29,7 @@ const FilterForm = () => {
 
   // re-setState when have search-params
   useEffect(() => {
-    if (hashSearchParams) {
+    if (pathname === '/filter' && hashSearchParams) {
       setformStates((prev) => {
         const { type, country, releaseYear, sort, genre } = filterForm;
         const states = {
@@ -51,7 +51,7 @@ const FilterForm = () => {
         return states;
       });
     }
-  }, [hashSearchParams]);
+  }, [pathname, hashSearchParams]);
 
   // get Api genre
   useEffect(() => {
@@ -90,14 +90,14 @@ const FilterForm = () => {
     const selectedType = filterForm.type.children.find(
       (item) => item.id === formStates.type
     );
-    return selectedType.name;
+    return selectedType?.name;
   }, [formStates.type]);
 
   const selectedSortName = useMemo(() => {
     const selectedSort = filterForm.sort.children.find(
       (item) => item.id === formStates.sort
     );
-    return selectedSort.name;
+    return selectedSort?.name;
   }, [formStates.sort]);
 
   const countGenre = useMemo(() => {
@@ -253,4 +253,4 @@ const FilterForm = () => {
   );
 };
 
-export default FilterForm;
+export default React.memo(FilterForm);

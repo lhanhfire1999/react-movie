@@ -67,4 +67,4 @@ MovieDetails.propTypes = {
   genre: PropTypes.string.isRequired,
 };
 
-export default MovieDetails;
+export default React.memo(MovieDetails);

@@ -31,4 +31,4 @@ LoadMoreBtn.propTypes = {
   onClick: PropTypes.func,
 };
 
-export default LoadMoreBtn;
+export default React.memo(LoadMoreBtn);

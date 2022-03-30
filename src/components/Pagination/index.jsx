@@ -1,10 +1,11 @@
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import './Pagination.scss';
-import { handleScrollTop, usePagination } from '../../utils';
-import { limitTotalPages, paginationIcons } from '../../constants';
 import clsx from 'clsx';
+import PropTypes from 'prop-types';
+import React, { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
+
+import { limitTotalPages, paginationIcons } from '../../constants';
+import { handleScrollTop, usePagination } from '../../utils';
+import './Pagination.scss';
 
 const Pagination = ({ totalPages, pageSize = 5 }) => {
   const [searchParams, setSearchParams] = useSearchParams();

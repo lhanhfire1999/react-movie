@@ -35,4 +35,4 @@ CastList.propTypes = {
   cast: PropTypes.array,
 };
 
-export default CastList;
+export default React.memo(CastList);

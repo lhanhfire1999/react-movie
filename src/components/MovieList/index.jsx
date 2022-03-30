@@ -29,4 +29,4 @@ MovieList.propTypes = {
   path: PropTypes.string,
 };
 
-export default MovieList;
+export default React.memo(MovieList);

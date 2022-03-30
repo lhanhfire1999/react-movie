@@ -89,4 +89,4 @@ TrailerList.propTypes = {
   videos: PropTypes.array,
 };
 
-export default TrailerList;
+export default React.memo(TrailerList);

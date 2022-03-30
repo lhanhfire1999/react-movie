@@ -36,9 +36,9 @@ const MovieSection = ({
 
   useEffect(() => {
     setFilter(content?.defaultFilter);
-    loadMoreBtn && setCurrentPage(1);
-    loadMoreBtn && setLoadMore({ loading: false, hidden: false });
-  }, [content, loadMoreBtn]);
+    setCurrentPage(1);
+    setLoadMore({ loading: false, hidden: false });
+  }, [content]);
 
   useEffect(() => {
     (async () => {

@@ -19,8 +19,12 @@
       font-size: $fontSizeNormal;
     }
 
-    &.active,
-    &:hover {
+    &.active {
+      background-color: $mainColor;
+      box-shadow: $shadow;
+    }
+
+    @include hoverSupported {
       background-color: $mainColor;
       box-shadow: $shadow;
     }

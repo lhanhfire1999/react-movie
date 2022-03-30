@@ -3,10 +3,6 @@ import { handleScrollTop } from '../../utils';
 import './ScrollUp.scss';
 
 const ScrollUp = () => {
-  const handleScrollUp = () => {
-    return handleScrollTop();
-  };
-
   useEffect(() => {
     const showScrollUpBtn = () => {
       if (
@@ -23,10 +19,10 @@ const ScrollUp = () => {
   });
 
   return (
-    <span className="scroll-up" onClick={handleScrollUp}>
+    <span className="scroll-up" onClick={handleScrollTop}>
       <i className="bx bx-up-arrow-alt bx-sm"></i>
     </span>
   );
 };
 
-export default ScrollUp;
+export default React.memo(ScrollUp);

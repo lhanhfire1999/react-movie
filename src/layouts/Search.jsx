@@ -1,10 +1,12 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import Title from '../components/Title';
+
 import tmdbApi from '../api/tmdpApi';
+import LoadMoreBtn from '../components/LoadMoreBtn';
 import MovieList from '../components/MovieList';
 import Preloader from '../components/Preloader';
-import LoadMoreBtn from '../components/LoadMoreBtn';
+import Title from '../components/Title';
+import FilterForm from '../components/FilterForm';
 
 const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -55,25 +57,20 @@ const Search = () => {
     }
   }, [navigate, urlSearchParams.currentPage, urlSearchParams.keyword]);
 
-  const handleLoadMoreBtn = () => {
-    if (!loadMoreBtn.hidden) {
-      searchParams.set('page', urlSearchParams.currentPage + 1);
-      return setSearchParams(searchParams);
-    }
-    return null;
-  };
+  const handleLoadMoreBtn = useCallback(() => {
+    searchParams.set('page', urlSearchParams.currentPage + 1);
+    setSearchParams(searchParams);
+  }, [searchParams, setSearchParams, urlSearchParams.currentPage]);
 
   return (
     <div className="section container">
       {preloader && <Preloader />}
       <Title>{`Result for: ${urlSearchParams.keyword}`}</Title>
+      <FilterForm />
 
       {movies.length > 0 && <MovieList movies={movies} />}
       {totalPage > urlSearchParams.currentPage && (
-        <LoadMoreBtn
-          loading={loadMoreBtn.loading}
-          onClick={handleLoadMoreBtn}
-        />
+        <LoadMoreBtn loading={loadMoreBtn} onClick={handleLoadMoreBtn} />
       )}
     </div>
   );

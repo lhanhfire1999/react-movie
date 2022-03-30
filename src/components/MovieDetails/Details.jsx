@@ -92,4 +92,4 @@ Details.propTypes = {
   genre: PropTypes.string,
 };
 
-export default Details;
+export default React.memo(Details);
