@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
 import tmdbApi from '../../api/tmdpApi';
+import { prevTitle } from '../../constants';
 import Preloader from '../Preloader';
 import TrailerModal from '../TrailerModal';
 import Details from './Details';
@@ -27,6 +28,11 @@ const MovieDetails = ({ id, genre }) => {
           getSimilarMovies(genre, id),
         ]);
 
+        document.title = `${responses[0]?.title ?? responses[0]?.name} (${
+          responses[0]?.release_date?.slice(0, 4) ??
+          responses[0]?.last_air_date?.slice(0, 4)
+        }) | DMovies`;
+
         setState((prev) => ({
           ...prev,
           movieInfo: responses[0],
@@ -40,6 +46,9 @@ const MovieDetails = ({ id, genre }) => {
         throw new Error(err);
       }
     })();
+    return () => {
+      document.title = prevTitle;
+    };
   }, [id, genre]);
 
   return (

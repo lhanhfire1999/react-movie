@@ -1,12 +1,15 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-
 import tmdbApi from '../api/tmdpApi';
-import LoadMoreBtn from '../components/LoadMoreBtn';
-import MovieList from '../components/MovieList';
-import Preloader from '../components/Preloader';
-import Title from '../components/Title';
-import FilterForm from '../components/FilterForm';
+
+import {
+  FilterForm,
+  LoadMoreBtn,
+  MovieList,
+  Preloader,
+  Title,
+} from '../components';
+import { useTitle } from '../utils';
 
 const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -24,6 +27,8 @@ const Search = () => {
     }),
     [searchParams]
   );
+
+  useTitle('search', urlSearchParams.keyword);
 
   useEffect(() => {
     if (urlSearchParams.keyword) {

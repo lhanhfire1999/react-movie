@@ -8,6 +8,10 @@ export const limitTotalPages = 500;
 export const $ = document.querySelector.bind(document);
 export const $$ = document.querySelectorAll.bind(document);
 
+export const prevTitle =
+  'DMovies | Watch the Latest Movies and TV Shows for Free';
+
+// Header
 export const headerNav = [
   { display: 'home', path: '/' },
   { display: 'movies', path: '/movie' },
@@ -99,7 +103,7 @@ export const movieSections = [
   },
 ];
 
-// Filter
+// Filter Page
 export const filterForm = {
   type: {
     title: 'Type',

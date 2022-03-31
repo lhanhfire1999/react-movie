@@ -6,6 +6,7 @@ import tmdbApi from '../api/tmdpApi';
 import { FilterForm, MovieList, Title } from '../components';
 import Pagination from '../components/Pagination';
 import { filterForm } from '../constants';
+import { useTitle } from '../utils';
 
 const Filter = () => {
   const [movies, setMovies] = useState([]);
@@ -20,6 +21,7 @@ const Filter = () => {
     return null;
   }, [location.search]);
 
+  useTitle('filter', null);
   useEffect(() => {
     (async () => {
       if (hashSearchParams) {
