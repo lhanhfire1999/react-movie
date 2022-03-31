@@ -2,7 +2,15 @@ import 'boxicons/css/boxicons.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { NotFound } from './components';
-import { Category, Detail, Filter, Home, MainLayout, Search } from './layouts';
+import {
+  Category,
+  Detail,
+  Filter,
+  Home,
+  MainLayout,
+  Search,
+  WatchMovie,
+} from './views';
 import './scss/App.scss';
 
 function App() {
@@ -13,6 +21,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path=":category" element={<Category />} />
           <Route path=":category/:movieId" element={<Detail />} />
+          <Route path=":category/:movieId/watch" element={<WatchMovie />} />
           <Route path="search" element={<Search />} />
           <Route path="filter" element={<Filter />} />
           <Route path="*" element={<NotFound />} />

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useBackdropPath, usePosterPath, useReleaseYear } from '../../utils';
 import Button from '../Button';
@@ -20,6 +21,7 @@ const Details = ({ movieInfo, cast, videos, similars, genre }) => {
     poster_path,
   } = movieInfo;
 
+  const navigate = useNavigate();
   const releaseYear = useReleaseYear(release_date || last_air_date);
 
   return (
@@ -49,8 +51,12 @@ const Details = ({ movieInfo, cast, videos, similars, genre }) => {
             ))}
           </div>
 
-          <Button onClick={() => null} icon="bx-play bx-sm" color="primary">
-            Play Now
+          <Button
+            onClick={() => navigate('watch', { state: movieInfo })}
+            icon="bx-play bx-sm"
+            color="primary"
+          >
+            Watch Now
           </Button>
 
           {cast?.length > 0 && (
