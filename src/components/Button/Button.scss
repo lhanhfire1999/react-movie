@@ -25,6 +25,8 @@
   &.reverse {
     & > i {
       order: 1;
+      margin-right: 0;
+      margin-left: 4px;
     }
   }
 

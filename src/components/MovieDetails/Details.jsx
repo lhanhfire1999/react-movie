@@ -52,7 +52,7 @@ const Details = ({ movieInfo, cast, videos, similars, genre }) => {
           </div>
 
           <Button
-            onClick={() => navigate('watch', { state: movieInfo })}
+            onClick={() => navigate('watch')}
             icon="bx-play bx-sm"
             color="primary"
           >

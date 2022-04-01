@@ -43,12 +43,26 @@ const getProfilePath = (profile_path = '') => {
   return profile_path ? apiConfig.w200Image(profile_path) : noPicture;
 };
 
+const isPositiveInteger = (str) => {
+  if (typeof str !== 'string') {
+    return false;
+  }
+
+  const num = Number(str);
+  if (Number.isInteger(num) && num > 0) {
+    return true;
+  }
+
+  return false;
+};
+
 export {
   handleScrollTop,
   convertFilterName,
   getTrailerThumbUrl,
   getTrailerUrl,
   getProfilePath,
+  isPositiveInteger,
 };
 export { default as usePagination } from './usePagination';
 export * from './usePagination';

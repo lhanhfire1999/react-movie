@@ -16,4 +16,5 @@ export { default as ScrollUp } from './ScrollUp';
 export { default as Title } from './Title';
 export { default as TrailerModal } from './TrailerModal';
 export { default as Pagination } from './Pagination';
-export { default as Video } from './Video';
+export { default as VideoIframe } from './VideoIframe';
+export { default as TvSeason } from './TvSeason';
