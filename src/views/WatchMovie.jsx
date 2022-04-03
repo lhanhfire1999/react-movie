@@ -4,6 +4,7 @@ import tmdbApi from '../api/tmdpApi';
 import { Preloader, TvSeason, VideoIframe } from '../components';
 import queryString from 'query-string';
 import { isPositiveInteger } from '../utils';
+import { prevTitle } from '../constants';
 
 const WatchMovie = () => {
   const navigate = useNavigate();
@@ -54,18 +55,25 @@ const WatchMovie = () => {
         }
       }
 
+      document.title = `DMovies | Watch ${res?.title ?? res?.name} (${
+        res?.release_date?.slice(0, 4) ?? res?.last_air_date?.slice(0, 4)
+      }) Online Free`;
+
       setState((prev) => ({ ...prev, movieInfo: res, preloader: false }));
     })();
+
+    return () => {
+      document.title = prevTitle;
+    };
   }, [category, movieId, navigate, search]);
 
   return (
     <>
-      {console.log('re-render')}
       {state.preloader && <Preloader />}
       {Object.keys(state.movieInfo).length > 0 && (
         <VideoIframe
           category={category}
-          id={state.movieInfo?.id}
+          id={movieId}
           backdropPath={
             state.movieInfo?.backdrop_path || state.movieInfo?.poster_path
           }
@@ -74,7 +82,7 @@ const WatchMovie = () => {
 
       <div className="container">
         {state.movieInfo?.seasons?.length > 0 && (
-          <TvSeason seasons={state.movieInfo?.seasons} />
+          <TvSeason seasons={state.movieInfo?.seasons} id={movieId} />
         )}
       </div>
     </>

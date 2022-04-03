@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import apiConfig from '../api/apiConfig';
 import {
   prevTitle,
@@ -52,4 +53,21 @@ const useReleaseYear = (release_date = '') => {
   }, [release_date]);
 };
 
-export { useBackdropPath, usePosterPath, useReleaseYear, useTitle };
+const useTvSeasonInfo = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tvInfos = useMemo(() => {
+    return {
+      season: searchParams.get('ss') ? +searchParams.get('ss') : 1,
+      episode: searchParams.get('ep') ? +searchParams.get('ep') : 1,
+    };
+  }, [searchParams]);
+  return [tvInfos, searchParams, setSearchParams];
+};
+
+export {
+  useBackdropPath,
+  usePosterPath,
+  useReleaseYear,
+  useTitle,
+  useTvSeasonInfo,
+};

@@ -28,10 +28,12 @@ const MovieDetails = ({ id, genre }) => {
           getSimilarMovies(genre, id),
         ]);
 
-        document.title = `${responses[0]?.title ?? responses[0]?.name} (${
+        document.title = `DMovies | ${
+          responses[0]?.title ?? responses[0]?.name
+        } (${
           responses[0]?.release_date?.slice(0, 4) ??
           responses[0]?.last_air_date?.slice(0, 4)
-        }) | DMovies`;
+        })`;
 
         setState((prev) => ({
           ...prev,
