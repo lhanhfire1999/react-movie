@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import tmdbApi from '../api/tmdpApi';
-import { Preloader, TvSeason, VideoIframe } from '../components';
+import {
+  MovieList,
+  Preloader,
+  Title,
+  TvSeason,
+  VideoIframe,
+} from '../components';
 import queryString from 'query-string';
 import { isPositiveInteger } from '../utils';
 import { prevTitle } from '../constants';
@@ -11,7 +17,11 @@ const WatchMovie = () => {
   const { category, movieId } = useParams();
   const { search } = useLocation();
 
-  const [state, setState] = useState({ preloader: true, movieInfo: {} });
+  const [state, setState] = useState({
+    preloader: true,
+    movieInfo: {},
+    similarMovies: [],
+  });
 
   useEffect(() => {
     if (category === 'movie' && search) {
@@ -67,6 +77,13 @@ const WatchMovie = () => {
     };
   }, [category, movieId, navigate, search]);
 
+  useEffect(() => {
+    (async () => {
+      const res = await tmdbApi.getSimilarMovies(category, movieId);
+      setState((prev) => ({ ...prev, similarMovies: res?.results }));
+    })();
+  }, [category, movieId]);
+
   return (
     <>
       {state.preloader && <Preloader />}
@@ -83,6 +100,13 @@ const WatchMovie = () => {
       <div className="container">
         {state.movieInfo?.seasons?.length > 0 && (
           <TvSeason seasons={state.movieInfo?.seasons} id={movieId} />
+        )}
+
+        {state.similarMovies.length > 0 && (
+          <div className="section">
+            <Title>You may also like</Title>
+            <MovieList movies={state.similarMovies} genre={category} />
+          </div>
         )}
       </div>
     </>

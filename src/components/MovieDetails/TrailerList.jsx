@@ -10,8 +10,8 @@ const TrailerList = ({ videos }) => {
   const navigationRef = useRef(null);
 
   useLayoutEffect(() => {
+    const trailersDOM = trailersRef.current;
     const { clientWidth, scrollWidth } = trailersRef.current;
-    trailersRef.current.scrollLeft = 0;
 
     if (scrollWidth === clientWidth) {
       navigationRef.current.removeClassName(['next', 'previous']);
@@ -19,6 +19,10 @@ const TrailerList = ({ videos }) => {
       navigationRef.current.addClassName('next');
       navigationRef.current.removeClassName('previous');
     }
+
+    return () => {
+      trailersDOM.scrollLeft = 0;
+    };
   }, [videos]);
 
   const handleTurnOnTrailer = (id, key) => {
