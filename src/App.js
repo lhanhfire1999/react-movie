@@ -21,7 +21,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path=":category" element={<Category />} />
           <Route path=":category/:movieId" element={<Detail />} />
-          <Route path=":category/:movieId/watch" element={<WatchMovie />} />
+          <Route path="/watch/:category/:movieId" element={<WatchMovie />} />
           <Route path="search" element={<Search />} />
           <Route path="filter" element={<Filter />} />
           <Route path="*" element={<NotFound />} />

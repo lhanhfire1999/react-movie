@@ -7,6 +7,7 @@ import {
   Title,
   TvSeason,
   VideoIframe,
+  WatchMovieDetail,
 } from '../components';
 import queryString from 'query-string';
 import { isPositiveInteger } from '../utils';
@@ -80,7 +81,10 @@ const WatchMovie = () => {
   useEffect(() => {
     (async () => {
       const res = await tmdbApi.getSimilarMovies(category, movieId);
-      setState((prev) => ({ ...prev, similarMovies: res?.results }));
+      setState((prev) => ({
+        ...prev,
+        similarMovies: res?.results.slice(0, 9),
+      }));
     })();
   }, [category, movieId]);
 
@@ -102,12 +106,26 @@ const WatchMovie = () => {
           <TvSeason seasons={state.movieInfo?.seasons} id={movieId} />
         )}
 
-        {state.similarMovies.length > 0 && (
-          <div className="section">
-            <Title>You may also like</Title>
-            <MovieList movies={state.similarMovies} genre={category} />
+        <div className="row">
+          <div className="col-lg-8 col-md-12 col-12">
+            {Object.keys(state.movieInfo).length > 0 && (
+              <WatchMovieDetail movieInfo={state.movieInfo} />
+            )}
           </div>
-        )}
+
+          {state.similarMovies.length > 0 && (
+            <div className="col-lg-4 col-md-12 col-12">
+              <div className="section">
+                <Title>You may also like</Title>
+                <MovieList
+                  movies={state.similarMovies}
+                  path={`/watch/${category}`}
+                  watchMovieLayout
+                />
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </>
   );

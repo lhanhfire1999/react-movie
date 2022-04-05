@@ -1,18 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MovieCard from '../MovieCard';
+import clsx from 'clsx';
 
-const MovieList = ({ movies, genre, path }) => {
+const MovieList = ({ movies, genre, path, watchMovieLayout }) => {
   return (
     <div className="movie-list">
       <div className="row">
         {movies?.map((movie) => (
-          <div className="col-lg-2 col-md-3 col-6 " key={movie?.id}>
+          <div
+            className={clsx('col-lg-2 col-md-3 col-6', {
+              'col-lg-4': watchMovieLayout,
+            })}
+            key={movie?.id}
+          >
             <MovieCard
-              id={movie?.id}
-              posterUrl={movie?.poster_path}
-              title={movie?.title ?? movie?.name}
-              releaseDate={movie?.release_date ?? movie?.first_air_date}
+              movieInfo={movie}
               genre={movie?.media_type ?? genre}
               path={path}
             />
@@ -27,6 +30,7 @@ MovieList.propTypes = {
   movies: PropTypes.array.isRequired,
   genre: PropTypes.string,
   path: PropTypes.string,
+  watchMovieLayout: PropTypes.bool,
 };
 
 export default React.memo(MovieList);

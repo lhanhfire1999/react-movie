@@ -1,0 +1,44 @@
+@use '../../scss/abstracts/' as *;
+.watch-movie-detail {
+  background-color: $boxBg;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: $shadow;
+
+  &__poster {
+    padding-top: 120%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 8px;
+    box-shadow: $shadow;
+  }
+  &__content {
+    & > * + * {
+      margin-top: 0.75rem;
+    }
+    .vote-average {
+      font-weight: 700;
+      @include flex(center, flex-start);
+      &__icon {
+        @include flex(center, flex-start);
+        margin-right: 1rem;
+      }
+    }
+    .title {
+      font-weight: 700;
+      font-size: 3.5rem;
+    }
+    .meta {
+      & > * + * {
+        margin-top: 0.25rem;
+      }
+      & > * {
+        display: flex;
+        b {
+          width: 20%;
+        }
+      }
+    }
+  }
+}

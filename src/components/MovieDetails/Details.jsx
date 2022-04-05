@@ -11,6 +11,7 @@ import TrailerList from './TrailerList';
 
 const Details = ({ movieInfo, cast, videos, similars, genre }) => {
   const {
+    id,
     title,
     name,
     overview,
@@ -52,7 +53,7 @@ const Details = ({ movieInfo, cast, videos, similars, genre }) => {
           </div>
 
           <Button
-            onClick={() => navigate('watch')}
+            onClick={() => navigate(`/watch/${genre}/${id}`)}
             icon="bx-play bx-sm"
             color="primary"
           >

@@ -5,8 +5,17 @@ import { useNavigate } from 'react-router-dom';
 import { handleScrollTop, usePosterPath, useReleaseYear } from '../../utils';
 import './MovieCard.scss';
 
-const MovieCard = ({ id, posterUrl, title, releaseDate, genre, path }) => {
+const MovieCard = ({ movieInfo, genre, path }) => {
   const navigate = useNavigate();
+  const {
+    id,
+    poster_path,
+    backdrop_path,
+    title,
+    name,
+    release_date,
+    first_air_date,
+  } = movieInfo;
 
   const movieType = useMemo(() => {
     if (genre || path) {
@@ -31,18 +40,22 @@ const MovieCard = ({ id, posterUrl, title, releaseDate, genre, path }) => {
       <div className="movie-card__wrapper-poster">
         <div
           className="movie-card__poster"
-          style={{ backgroundImage: `url(${usePosterPath(posterUrl)})` }}
+          style={{
+            backgroundImage: `url(${usePosterPath(
+              poster_path || backdrop_path
+            )})`,
+          }}
         />
         <span className="movie-card__play-icon">
           <i className="bx bx-play-circle"></i>
         </span>
       </div>
       <div className="movie-card__content">
-        <h3 className="movie-card__content__name" title={title}>
-          {title}
+        <h3 className="movie-card__content__name" title={title || name}>
+          {title || name}
         </h3>
         <ul className="movie-card__content__infos">
-          <li>{useReleaseYear(releaseDate)}</li>
+          <li>{useReleaseYear(release_date || first_air_date)}</li>
           <li>{movieType}</li>
         </ul>
       </div>
@@ -51,10 +64,7 @@ const MovieCard = ({ id, posterUrl, title, releaseDate, genre, path }) => {
 };
 
 MovieCard.propTypes = {
-  id: PropTypes.number.isRequired,
-  title: PropTypes.string,
-  posterUrl: PropTypes.string,
-  releaseDate: PropTypes.string,
+  movieInfo: PropTypes.object.isRequired,
   genre: PropTypes.string,
   path: PropTypes.string,
 };
