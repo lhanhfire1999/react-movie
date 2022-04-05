@@ -53,10 +53,12 @@ const WatchMovieDetail = ({ movieInfo }) => {
                   <b>Release year:</b>
                   <span>{releaseYear}</span>
                 </li>
-                <li>
-                  <b>Tag: </b>
-                  <span>{movieInfo?.tagline}</span>
-                </li>
+                {movieInfo?.tagline && (
+                  <li>
+                    <b>Tag: </b>
+                    <span>{movieInfo?.tagline}</span>
+                  </li>
+                )}
               </ul>
             </div>
           </div>
