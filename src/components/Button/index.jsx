@@ -49,7 +49,7 @@ const Button = ({
             'btn--border': border,
             reverse,
           })}
-          onClick={handleClick}
+          disabled={disabled}
           to={linkTo}
         >
           {icon && <i className={clsx('bx', { [icon]: icon })}></i>}

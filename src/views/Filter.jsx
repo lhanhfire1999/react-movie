@@ -9,14 +9,18 @@ import { filterForm } from '../constants';
 import { useTitle } from '../utils';
 
 const Filter = () => {
+  const location = useLocation();
   const [movies, setMovies] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
 
-  const location = useLocation();
-
   const hashSearchParams = useMemo(() => {
     if (location.search) {
-      return queryString.parse(location.search);
+      const hashSearch = queryString.parse(location.search);
+
+      if (hashSearch?.type === 'movie' || hashSearch?.type === 'tv') {
+        return hashSearch;
+      }
+      return null;
     }
     return null;
   }, [location.search]);
@@ -31,6 +35,14 @@ const Filter = () => {
 
         setMovies(res.results);
         setTotalPages(res.total_pages);
+      } else {
+        setMovies((prev) => {
+          if (prev.length === 0) {
+            return prev;
+          }
+          return [];
+        });
+        setTotalPages(0);
       }
     })();
   }, [hashSearchParams]);
@@ -39,11 +51,13 @@ const Filter = () => {
     <div className="container section" style={{ minHeight: '50vh' }}>
       <Title>Filter Movies</Title>
       <FilterForm />
-      {movies.length > 0 && (
-        <MovieList movies={movies} genre={hashSearchParams.type} />
+      {movies.length > 0 && hashSearchParams && (
+        <MovieList movies={movies} genre={hashSearchParams?.type} />
       )}
 
-      {!!totalPages && <Pagination totalPages={totalPages} />}
+      {!!totalPages && hashSearchParams && (
+        <Pagination totalPages={totalPages} />
+      )}
     </div>
   );
 };

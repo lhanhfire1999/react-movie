@@ -28,7 +28,7 @@
     }
     .title {
       font-weight: 700;
-      font-size: 3.5rem;
+      font-size: 2.5rem;
 
       @include tablet {
         font-size: 2rem;
@@ -36,6 +36,19 @@
 
       @include mobile {
         font-size: 1.5rem;
+      }
+    }
+    .overview {
+      &__paragraph {
+        text-align: justify;
+      }
+
+      &__more-btn {
+        display: inline-block;
+        color: rgba($white, 0.5);
+        text-shadow: $shadow;
+        padding: 0.25rem 0;
+        cursor: pointer;
       }
     }
     .meta {

@@ -29,7 +29,12 @@ const FilterForm = () => {
 
   // re-setState when have search-params
   useEffect(() => {
-    if (pathname === '/filter' && hashSearchParams) {
+    if (
+      pathname === '/filter' &&
+      hashSearchParams &&
+      hashSearchParams[filterForm.type.paramKey] &&
+      hashSearchParams[filterForm.sort.paramKey]
+    ) {
       setformStates((prev) => {
         const { type, country, releaseYear, sort, genre } = filterForm;
         const states = {
