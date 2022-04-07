@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useBackdropPath, usePosterPath, useReleaseYear } from '../../utils';
+import { useBackdropPath, usePosterPath, useReleaseYear } from '../../hooks';
 import Button from '../Button';
 import MovieList from '../MovieList';
 import Title from '../Title';

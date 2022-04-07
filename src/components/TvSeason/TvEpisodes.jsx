@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import { handleScrollTop, useTvSeasonInfo } from '../../utils';
+import { handleScrollTop } from '../../utils';
+import { useTvSeasonInfo } from '../../hooks';
 
 const TvEpisodes = ({ episodes, selectedSeason }) => {
   const [tvInfo, searchParams, setSearchParams] = useTvSeasonInfo();

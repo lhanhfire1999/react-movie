@@ -64,6 +64,3 @@ export {
   getProfilePath,
   isPositiveInteger,
 };
-export { default as usePagination } from './usePagination';
-export * from './usePagination';
-export * from './hooks';

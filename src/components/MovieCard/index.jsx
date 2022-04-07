@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { useMemo } from 'react';
-
 import { useNavigate } from 'react-router-dom';
-import { handleScrollTop, usePosterPath, useReleaseYear } from '../../utils';
+
+import { usePosterPath, useReleaseYear } from '../../hooks';
+import { handleScrollTop } from '../../utils';
 import './MovieCard.scss';
 
 const MovieCard = ({ movieInfo, genre, path }) => {

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useMemo } from 'react';
 
 import { embedEpisode, embedMovie } from '../../api/embedMovie';
-import { useBackdropPath, useTvSeasonInfo } from '../../utils';
+import { useBackdropPath, useTvSeasonInfo } from '../../hooks';
 import styles from './VideoIframe.module.scss';
 
 const VideoIframe = ({ category, id, backdropPath }) => {

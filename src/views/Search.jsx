@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import tmdbApi from '../api/tmdpApi';
 
+import tmdbApi from '../api/tmdpApi';
 import {
   FilterForm,
   LoadMoreBtn,
@@ -9,7 +9,7 @@ import {
   Preloader,
   Title,
 } from '../components';
-import { useTitle } from '../utils';
+import { useTitle } from '../hooks';
 
 const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();

@@ -4,12 +4,8 @@ import { useCallback, useMemo } from 'react';
 
 import tmdbApi, { category } from '../../api/tmdpApi';
 import { noVideoUrl } from '../../constants';
-import {
-  getTrailerUrl,
-  useBackdropPath,
-  usePosterPath,
-  useReleaseYear,
-} from '../../utils';
+import { useBackdropPath, usePosterPath, useReleaseYear } from '../../hooks';
+import { getTrailerUrl } from '../../utils';
 import Button from '../Button';
 
 const BannerItem = ({ movies, active }) => {

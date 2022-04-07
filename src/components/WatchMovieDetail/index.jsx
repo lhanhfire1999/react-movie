@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { usePosterPath, useReleaseYear } from '../../utils';
+import { usePosterPath, useReleaseYear } from '../../hooks';
 import './WatchMovieDetail.scss';
 
 const WatchMovieDetail = ({ movieInfo }) => {

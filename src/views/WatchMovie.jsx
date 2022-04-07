@@ -1,5 +1,7 @@
+import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+
 import tmdbApi from '../api/tmdpApi';
 import {
   MovieList,
@@ -9,9 +11,8 @@ import {
   VideoIframe,
   WatchMovieDetail,
 } from '../components';
-import queryString from 'query-string';
-import { isPositiveInteger } from '../utils';
 import { prevTitle } from '../constants';
+import { isPositiveInteger } from '../utils';
 
 const WatchMovie = () => {
   const navigate = useNavigate();

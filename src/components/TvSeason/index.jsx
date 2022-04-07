@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 import tmdbApi from '../../api/tmdpApi';
 import { $ } from '../../constants';
-import { useTvSeasonInfo } from '../../utils';
+import { useTvSeasonInfo } from '../../hooks';
 import Button from '../Button';
 import TvEpisodes from './TvEpisodes';
 import './TvSeason.scss';

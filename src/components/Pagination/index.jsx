@@ -4,7 +4,8 @@ import React, { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { limitTotalPages, paginationIcons } from '../../constants';
-import { handleScrollTop, usePagination } from '../../utils';
+import { usePagination } from '../../hooks';
+import { handleScrollTop } from '../../utils';
 import './Pagination.scss';
 
 const Pagination = ({ totalPages, pageSize = 5 }) => {

@@ -3,10 +3,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import tmdbApi from '../api/tmdpApi';
-import { FilterForm, MovieList, Title } from '../components';
-import Pagination from '../components/Pagination';
+import { FilterForm, MovieList, Pagination, Title } from '../components';
 import { filterForm } from '../constants';
-import { useTitle } from '../utils';
+import { useTitle } from '../hooks';
 
 const Filter = () => {
   const location = useLocation();

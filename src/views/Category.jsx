@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { MovieSection, NotFound } from '../components';
 import { movieGenres } from '../constants';
-import { useTitle } from '../utils';
+import { useTitle } from '../hooks';
 
 const Category = () => {
   const { category } = useParams();
