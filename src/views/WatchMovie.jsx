@@ -52,19 +52,6 @@ const WatchMovie = () => {
         ) {
           return navigate('/error');
         }
-
-        const isEpisode = res?.seasons.some(
-          ({ season_number, episode_count }) => {
-            if (season_number === +hashSearchParams?.ss) {
-              return +hashSearchParams?.ep <= episode_count;
-            }
-            return false;
-          }
-        );
-
-        if (!isEpisode) {
-          return navigate('/error');
-        }
       }
 
       document.title = `DMovies | Watch ${res?.title ?? res?.name} (${
